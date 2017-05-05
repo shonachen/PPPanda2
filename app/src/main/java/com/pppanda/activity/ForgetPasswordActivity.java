@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.pppanda.R;
+import com.pppanda.util.StatusBarUtils;
 
 /**
  * Created by Administrator on 2017/5/3.
@@ -23,11 +24,13 @@ public class ForgetPasswordActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        //无title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //设置图片全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        //无title
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        //设置图片全屏
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //状态栏透明
+        StatusBarUtils.transparentStatusBar(this);
         setContentView(R.layout.activity_forget_password);
         final ImageView ivBack = (ImageView)findViewById(R.id.forgetPassword_back);
         final ImageView ivEye = (ImageView)findViewById(R.id.forgetPassword_eye);

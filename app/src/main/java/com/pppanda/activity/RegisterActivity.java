@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pppanda.R;
+import com.pppanda.util.StatusBarUtils;
 
 /**
  * Created by Administrator on 2017/5/3.
@@ -26,11 +27,13 @@ public class RegisterActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        //无title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //设置图片全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        //无title
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        //设置图片全屏
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //状态栏透明
+        StatusBarUtils.transparentStatusBar(this);
         setContentView(R.layout.activity_register);
         final ImageView ivBack = (ImageView)findViewById(R.id.register_back);
         final ImageView ivEye = (ImageView)findViewById(R.id.register_eye);
