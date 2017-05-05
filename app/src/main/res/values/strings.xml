@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PPpanda</string>
+    <string name="phone_hint">手机号码</string>
+    <string name="password_hint">密码</string>
+    <string name="identify_hint">请输入验证码</string>
+    <string name="zhucexieyi">用户注册协议</string>
+    <string name="wangjimima">忘记密码?</string>
+    <string name="zongze">
+        1.1保宝网的所有权和运营权归深圳市永兴元科技有限公司所有。\n1.2用户在注册之前，应当仔细阅读本协议，并同意遵守本协议后方可成为注册用户。一旦注册成功，则用户与保宝网之间自动形成协议关系，用户应当受本协议的约束。用户在使用特殊的服务或产品时，应当同意接受相关协议后方能使用
+    </string>
+
+</resources>

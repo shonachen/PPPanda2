@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#ffffff">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@null"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@drawable/rb_text_color"
+            android:textSize="12sp"
+            android:checked="true"
+            android:text="首页"
+            android:drawableTop="@drawable/rb_home_selector"/>
+
+        <RadioButton
+            android:id="@+id/rb_healthdata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@null"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@drawable/rb_text_color"
+            android:textSize="12sp"
+            android:text="健康数据"
+            android:drawableTop="@drawable/rb_healthdata_selector"/>
+
+        <RadioButton
+            android:id="@+id/rb_illmanagement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@null"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@drawable/rb_text_color"
+            android:textSize="12sp"
+            android:text="慢病管理"
+            android:drawableTop="@drawable/rb_ill_selector"/>
+
+        <RadioButton
+            android:id="@+id/rb_myself"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@null"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@drawable/rb_text_color"
+            android:textSize="12sp"
+            android:text="我"
+            android:drawableTop="@drawable/rb_myself_selector"/>
+    </RadioGroup>
+
+
+
+</RelativeLayout>

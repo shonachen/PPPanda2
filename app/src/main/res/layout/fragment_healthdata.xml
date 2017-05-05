@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/health_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/title">
+
+        <TextView
+            android:id="@+id/tv_health_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="健康数据"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="#ffffff"/>
+
+        <ImageView
+            android:id="@+id/iv_health_addfamily"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@mipmap/people3"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/health_bangding"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@mipmap/home_bg">
+
+        <ImageView
+            android:id="@+id/iv_health_bangding"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@mipmap/btn_binding"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/tv_health_bangding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击绑定"
+            android:textColor="#ffffff"
+            android:layout_marginTop="110dp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_health_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:src="@mipmap/health_bg"/>
+
+
+
+</LinearLayout>

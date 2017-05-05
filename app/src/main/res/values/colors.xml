@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="line_below">#ABD3FF</color>
+    <color name="btn_text">#82CFEC</color>
+
+    <color name="RadioButton_text_check">#096f95</color>
+    <color name="RadioButton_text_nocheck">#545658</color>
+    <color name="title">#1BA1D4</color>
+
+</resources>
