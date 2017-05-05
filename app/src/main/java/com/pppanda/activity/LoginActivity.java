@@ -83,12 +83,14 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        设置android系统状态栏透明
-        StatusBarUtils.compat(this, Color.TRANSPARENT);
+//        StatusBarUtils.compat(this, Color.TRANSPARENT);
 //        //无title
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        //设置图片全屏
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        StatusBarUtils.transparentStatusBar(this);
+
         setContentView(R.layout.activity_login);
         imageView = (ImageView)findViewById(R.id.login_eye);
         editText = (EditText)findViewById(R.id.login_et_password);
