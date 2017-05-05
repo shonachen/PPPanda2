@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E7EAEF">
 
     <TextView
         android:id="@+id/tv_illmanagement_title"
@@ -13,5 +14,257 @@
         android:textSize="@dimen/title_text_size"
         android:textColor="#ffffff"
         android:background="@color/title"/>
+
+    <RelativeLayout
+        android:id="@+id/my_info"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/myself_item_color">
+
+        <ImageView
+            android:id="@+id/iv_myself_head"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/head"/>
+
+        <LinearLayout
+            android:id="@+id/my_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/iv_myself_head"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_myself_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textColor="@color/myself_text_color"
+                android:textSize="@dimen/myself_text_size"/>
+
+            <TextView
+                android:id="@+id/tv_myself_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="真实姓名"
+                android:textColor="#010101"
+                android:textSize="11sp"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/my_identify"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/myself_item_color">
+
+        <ImageView
+            android:id="@+id/iv_myself_identify_picture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_id"/>
+
+        <TextView
+            android:id="@+id/tv_myself_identify_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_myself_identify_picture"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:text="身份认证"
+            android:textColor="@color/myself_text_color"
+            android:textSize="@dimen/myself_text_size"/>
+
+        <ImageView
+            android:id="@+id/iv_myself_identify_next"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/btn_next_n"/>
+
+        <TextView
+            android:id="@+id/tv_myself_identify_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_myself_identify_next"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="未认证"
+            android:textColor="@color/myself_remark_color"
+            android:textSize="@dimen/myself_remark_size"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/my_family"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/myself_item_color">
+
+        <ImageView
+            android:id="@+id/iv_myself_family_picture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_family"/>
+
+        <TextView
+            android:id="@+id/tv_myself_family_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_myself_family_picture"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:text="我的家人"
+            android:textColor="@color/myself_text_color"
+            android:textSize="@dimen/myself_text_size"/>
+
+        <ImageView
+            android:id="@+id/iv_myself_family_next"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/btn_next_n"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/my_phone"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/myself_item_color">
+
+        <ImageView
+            android:id="@+id/iv_myself_phone_picture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_phone2"/>
+
+        <TextView
+            android:id="@+id/tv_myself_phone_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_myself_phone_picture"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:text="我的手机"
+            android:textColor="@color/myself_text_color"
+            android:textSize="@dimen/myself_text_size"/>
+
+        <ImageView
+            android:id="@+id/iv_myself_phone_next"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/btn_next_n"/>
+
+        <TextView
+            android:id="@+id/tv_myself_phone_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_myself_phone_next"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="13812345678"
+            android:textColor="@color/myself_remark_color"
+            android:textSize="@dimen/myself_remark_size"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/my_password"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/myself_item_color">
+
+        <ImageView
+            android:id="@+id/iv_myself_password_picture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_password"/>
+
+        <TextView
+            android:id="@+id/tv_myself_password_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_myself_password_picture"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:text="修改密码"
+            android:textColor="@color/myself_text_color"
+            android:textSize="@dimen/myself_text_size"/>
+
+        <ImageView
+            android:id="@+id/iv_myself_password_next"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/btn_next_n"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/my_aboutus"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="43dp"
+        android:background="@color/myself_item_color">
+
+        <ImageView
+            android:id="@+id/iv_myself_aboutus_picture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_us"/>
+
+        <TextView
+            android:id="@+id/tv_myself_aboutus_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_myself_aboutus_picture"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:text="关于我们"
+            android:textColor="@color/myself_text_color"
+            android:textSize="@dimen/myself_text_size"/>
+
+        <ImageView
+            android:id="@+id/iv_myself_aboutus_next"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/btn_next_n"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

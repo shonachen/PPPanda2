@@ -10,5 +10,8 @@
     <color name="RadioButton_text_check">#096f95</color>
     <color name="RadioButton_text_nocheck">#545658</color>
     <color name="title">#1BA1D4</color>
+    <color name="myself_text_color">#000000</color>
+    <color name="myself_remark_color">#808282</color>
+    <color name="myself_item_color">#ffffff</color>
 
 </resources>
