@@ -146,6 +146,7 @@ public class LoginActivity extends Activity {
         tvForgetPassword.getPaint().setAntiAlias(true);//抗锯齿
     }
 
+
     private void getUserID(){
         final Thread mUserId = new Thread(){
             @Override
@@ -238,7 +239,7 @@ public class LoginActivity extends Activity {
                 int user_id = userID;
                 String finger = "";
                 int login_type = 1;
-                String login_deviceid = "Android" + "," + "JPUSH" + "," + 5570;
+                String login_deviceid = "Android" + "," + "JPUSH" + "," + userID;
                 String login_lang = "zh_CN";
                 LoginRequest mLoginRequest = new LoginRequest(client_id,req_time,sign_key,user_id,password,finger,login_type,login_deviceid,login_lang);
                 Gson mGson = new Gson();

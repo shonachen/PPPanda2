@@ -1,6 +1,7 @@
 package com.pppanda.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -33,9 +34,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        startActivity(new Intent(getActivity(), LoginActivity.class));跳转页面
-
-        // Inflate the layout for this fragment
+//        startActivity(new Intent(getActivity(), LoginActivity.class));//跳转页面
+//
+//         Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
 
     }
