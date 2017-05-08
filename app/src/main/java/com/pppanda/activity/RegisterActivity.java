@@ -9,6 +9,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,10 @@ import com.pppanda.util.StatusBarUtils;
  */
 
 public class RegisterActivity extends Activity {
+    ImageView ivBack,ivEye,ivCheckBox;
+    EditText etPhone,etPassword,etIdentify;
+    TextView tvProtocol;
+    Button btnidentify,btnregister;
     boolean eyeOpen = false;
     boolean checkBox = false;
 
@@ -35,11 +40,20 @@ public class RegisterActivity extends Activity {
         //状态栏透明
         StatusBarUtils.transparentStatusBar(this);
         setContentView(R.layout.activity_register);
-        final ImageView ivBack = (ImageView)findViewById(R.id.register_back);
-        final ImageView ivEye = (ImageView)findViewById(R.id.register_eye);
-        final EditText etLoginPassword = (EditText)findViewById(R.id.register_et_password);
-        final ImageView ivCheckBox = (ImageView)findViewById(R.id.register_check_box);
-        TextView tvProtocol = (TextView)findViewById(R.id.register_tv_protocol);
+//        final ImageView ivBack = (ImageView)findViewById(R.id.register_back);
+//        final ImageView ivEye = (ImageView)findViewById(R.id.register_eye);
+//        final EditText etLoginPassword = (EditText)findViewById(R.id.register_et_password);
+//        final ImageView ivCheckBox = (ImageView)findViewById(R.id.register_check_box);
+//        TextView tvProtocol = (TextView)findViewById(R.id.register_tv_protocol);
+        ivBack = (ImageView)findViewById(R.id.register_back);
+        ivEye = (ImageView)findViewById(R.id.register_eye);
+        etPhone = (EditText)findViewById(R.id.register_et_phone);
+        etPassword = (EditText)findViewById(R.id.register_et_password);
+        etIdentify = (EditText)findViewById(R.id.register_et_identify);
+        ivCheckBox = (ImageView)findViewById(R.id.register_check_box);
+        tvProtocol = (TextView)findViewById(R.id.register_tv_protocol);
+        btnidentify = (Button)findViewById(R.id.register_identify_acquire);
+        btnregister = (Button)findViewById(R.id.register_btn_register);
 
         //返回
         ivBack.setOnClickListener(new View.OnClickListener(){
@@ -55,16 +69,20 @@ public class RegisterActivity extends Activity {
             @Override
             public void onClick(View view){
                 if (eyeOpen){
-                    etLoginPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     ivEye.setImageResource(R.mipmap.eye2);
                     eyeOpen = false;
                 }else{
-                    etLoginPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     ivEye.setImageResource(R.mipmap.eye);
                     eyeOpen = true;
                 }
             }
         });
+
+        //点击点击获取按钮，点击后账号注册，并发送验证码
+
+
 
         //勾选用户注册协议勾选框
         ivCheckBox.setOnClickListener(new View.OnClickListener() {
