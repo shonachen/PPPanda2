@@ -1,6 +1,6 @@
 package com.pppanda.response;
 
-import com.pppanda.DictRelation;
+import com.pppanda.entity.DictRelationEntity;
 
 import java.util.ArrayList;
 
@@ -26,9 +26,9 @@ public class GetDictRelationResponse extends BaseResponse {
 
     public  class Body{
         int total;
-        ArrayList<DictRelation> ris;
+        ArrayList<DictRelationEntity> ris;
 
-        public Body(int total, ArrayList<DictRelation> ris) {
+        public Body(int total, ArrayList<DictRelationEntity> ris) {
             this.total = total;
             this.ris = ris;
         }
@@ -41,11 +41,11 @@ public class GetDictRelationResponse extends BaseResponse {
             this.total = total;
         }
 
-        public ArrayList<DictRelation> getRis() {
+        public ArrayList<DictRelationEntity> getRis() {
             return ris;
         }
 
-        public void setRis(ArrayList<DictRelation> ris) {
+        public void setRis(ArrayList<DictRelationEntity> ris) {
             this.ris = ris;
         }
 

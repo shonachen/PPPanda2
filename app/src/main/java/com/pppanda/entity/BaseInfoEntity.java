@@ -1,10 +1,10 @@
-package com.pppanda;
+package com.pppanda.entity;
 
 /**
- * Created by Administrator on 2017/5/8.
+ * Created by Administrator on 2017/5/9.
  */
 
-public class UserInfomation {
+public class BaseInfoEntity {
     int user_id;
     int card_status;
     String card_id;
@@ -26,7 +26,7 @@ public class UserInfomation {
     String last_name;
     String first_name;
 
-    public UserInfomation(int user_id, int card_status, String card_id,
+    public BaseInfoEntity(int user_id, int card_status, String card_id,
                           String photo_url, String mob_phone, int birth_year,
                           int birth_month, int birth_dat, int sex, String company_code,
                           String like_name, String sign, int hcccard_status, int finger_status,
@@ -216,7 +216,7 @@ public class UserInfomation {
 
     @Override
     public String toString() {
-        return "UserInfomation{" +
+        return "BaseInfoEntity{" +
                 "user_id=" + user_id +
                 ", card_status=" + card_status +
                 ", card_id='" + card_id + '\'' +

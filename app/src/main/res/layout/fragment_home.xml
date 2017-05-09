@@ -44,7 +44,7 @@
             android:layout_centerInParent="true"/>
 
         <TextView
-            android:id="@+id/tv_home_bangding"
+            android:id="@+id/tv_home_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="点击绑定"

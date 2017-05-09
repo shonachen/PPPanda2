@@ -1,6 +1,6 @@
 package com.pppanda.response;
 
-import com.pppanda.HccData;
+import com.pppanda.entity.HCCDataEntity;
 
 import java.util.ArrayList;
 
@@ -26,9 +26,9 @@ public class GetHccDataResponse extends BaseResponse {
 
     public class Body{
         int total;
-        ArrayList<HccData> hdia;
+        ArrayList<HCCDataEntity> hdia;
 
-        public Body(int total, ArrayList<HccData> hdia) {
+        public Body(int total, ArrayList<HCCDataEntity> hdia) {
             this.total = total;
             this.hdia = hdia;
         }
@@ -41,11 +41,11 @@ public class GetHccDataResponse extends BaseResponse {
             this.total = total;
         }
 
-        public ArrayList<HccData> getHdia() {
+        public ArrayList<HCCDataEntity> getHdia() {
             return hdia;
         }
 
-        public void setHdia(ArrayList<HccData> hdia) {
+        public void setHdia(ArrayList<HCCDataEntity> hdia) {
             this.hdia = hdia;
         }
 

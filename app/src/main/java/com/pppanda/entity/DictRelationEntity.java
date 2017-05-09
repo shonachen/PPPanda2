@@ -1,15 +1,15 @@
-package com.pppanda;
+package com.pppanda.entity;
 
 /**
- * Created by Administrator on 2017/5/8.
+ * Created by Administrator on 2017/5/9.
  */
 
-public class DictRelation {
+public class DictRelationEntity {
     int relation_code;
     String relation_desc;
     int is_del;
 
-    public DictRelation(int relation_code, String relation_desc, int is_del) {
+    public DictRelationEntity(int relation_code, String relation_desc, int is_del) {
         this.relation_code = relation_code;
         this.relation_desc = relation_desc;
         this.is_del = is_del;

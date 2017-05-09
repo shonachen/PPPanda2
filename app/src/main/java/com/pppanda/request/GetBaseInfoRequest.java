@@ -4,11 +4,11 @@ package com.pppanda.request;
  * Created by Administrator on 2017/5/8.
  */
 
-public class GetUserInfoRequest {
+public class GetBaseInfoRequest {
     String access_token;
     int user_ids;
 
-    public GetUserInfoRequest(String access_token, int user_ids) {
+    public GetBaseInfoRequest(String access_token, int user_ids) {
         this.access_token = access_token;
         this.user_ids = user_ids;
     }
