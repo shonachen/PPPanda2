@@ -1,14 +1,16 @@
 package com.pppanda.request;
 
+import java.util.ArrayList;
+
 /**
  * Created by Administrator on 2017/5/8.
  */
 
 public class GetBaseInfoRequest {
     String access_token;
-    int user_ids;
+    ArrayList<Integer> user_ids;
 
-    public GetBaseInfoRequest(String access_token, int user_ids) {
+    public GetBaseInfoRequest(String access_token, ArrayList<Integer> user_ids) {
         this.access_token = access_token;
         this.user_ids = user_ids;
     }
@@ -21,11 +23,11 @@ public class GetBaseInfoRequest {
         this.access_token = access_token;
     }
 
-    public int getUser_ids() {
+    public ArrayList<Integer> getUser_ids() {
         return user_ids;
     }
 
-    public void setUser_ids(int user_ids) {
+    public void setUser_ids(ArrayList<Integer> user_ids) {
         this.user_ids = user_ids;
     }
 

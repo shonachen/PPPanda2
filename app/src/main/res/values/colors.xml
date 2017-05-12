@@ -13,5 +13,6 @@
     <color name="myself_text_color">#000000</color>
     <color name="myself_remark_color">#808282</color>
     <color name="myself_item_color">#ffffff</color>
+    <color name="home_score">#27ABDC</color>
 
 </resources>

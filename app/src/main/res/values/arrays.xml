@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="home_info_name">
+        <item>PP熊猫团队</item>
+        <item>我的家庭</item>
+        <item>慢病管理</item>
+        <item>健康资讯</item>
+    </string-array>
+
+    <string-array name="home_info_content">
+        <item>欢迎使用PP熊猫</item>
+        <item>欢迎使用PP熊猫，全心为您服务</item>
+        <item>欢迎使用PP熊猫，全心为您服务</item>
+        <item>欢迎使用PP熊猫，全心为您服务</item>
+    </string-array>
+
+</resources>

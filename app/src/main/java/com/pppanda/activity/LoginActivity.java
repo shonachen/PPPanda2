@@ -53,9 +53,9 @@ public class LoginActivity extends Activity {
     private static final int MSG_LOGIN_SUCCEED = 0X15;
     private static final int MSG_LOGIN_FAILED = 0X16;
 //    private static final int MSG_GET_BASE_INFO_SUCCEED = 0X17;
-//    private static final int MSG_GET_BASE_INFO_FAILED = 0X18;
+    private static final int MSG_GET_BASE_INFO_FAILED = 0X18;
 //    private static final int MSG_GET_HCC_DATA_RANK_SUCCEED = 0X19;
-//    private static final int MSG_GET_HCC_DATA_RANK_FAILED = 0X20;
+    private static final int MSG_GET_HCC_DATA_RANK_FAILED = 0X20;
 
     //OkHttp
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -79,7 +79,9 @@ public class LoginActivity extends Activity {
                     int userID = msg.arg1;
                     Log.e("TAG", "userID = "+userID);
 
-                    login(userID);
+                    login();
+
+//                    login(userID);
                     break;
                 case MSG_GET_USER_ID_FAILED:
                     String msgObj = (String)msg.obj;
@@ -93,6 +95,12 @@ public class LoginActivity extends Activity {
                 case MSG_LOGIN_FAILED:
                     String msgObj1 = (String)msg.obj;
                     Toast.makeText(LoginActivity.this,msgObj1,Toast.LENGTH_SHORT).show();
+                    break;
+                case MSG_GET_BASE_INFO_FAILED:
+                    Toast.makeText(LoginActivity.this,"获取数据失败",Toast.LENGTH_SHORT).show();
+                    break;
+                case MSG_GET_HCC_DATA_RANK_FAILED:
+                    Toast.makeText(LoginActivity.this,"获取数据失败",Toast.LENGTH_SHORT).show();
                     break;
 
                 default:
@@ -194,7 +202,7 @@ public class LoginActivity extends Activity {
                 UserIdRequest mUserIdRequest = new UserIdRequest(client_id,req_time,sign_key,mob_phone,card_id);
 
                 String json = mGson.toJson(mUserIdRequest);
-                Log.e("TAG", json);
+                Log.e("getUserID", json);
 
                 String url = "http://api.pp-panda.cc:8080/v1/user/usergetid";
 
@@ -216,7 +224,7 @@ public class LoginActivity extends Activity {
                 String mResult = null;
                 try {
                     mResult = mResponse.body().string();
-                    Log.e("TAG", "mResponse.body().string() = \n" + mResult);
+                    Log.e("getUserID", "mResponse.body().string() = \n" + mResult);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -229,9 +237,9 @@ public class LoginActivity extends Activity {
 //                    int userID = mUserIdResponseString.getBody().getUser_id();
                     Cache.userID = mUserIdResponseString.getBody().getUser_id();
 
-                    Log.e("TAG", "code_msg = " + codeMsg1);
-                    Log.e("TAG", "code = " + code1);
-                    Log.e("TAG", "user_id = " + Cache.userID);
+                    Log.e("getUserID", "code_msg = " + codeMsg1);
+                    Log.e("getUserID", "code = " + code1);
+                    Log.e("getUserID", "user_id = " + Cache.userID);
 
 //                        Message msg = new Message();
 //                        msg.what = MSG_GET_USER_ID_SUCCEED;
@@ -257,7 +265,7 @@ public class LoginActivity extends Activity {
     }
 
 
-    private void login(final int userID){
+    private void login(){
 
         Thread mlogin = new Thread(){
             @Override
@@ -269,14 +277,14 @@ public class LoginActivity extends Activity {
 //                        String password = "Aa123456";
                 password = etPassword.getText().toString();
                 password = Md5Util.md5(password);
-                int user_id = userID;
+                int user_id = Cache.userID;
                 String finger = "";
                 int login_type = 1;
-                String login_deviceid = "Android" + "," + "JPUSH" + "," + userID;
+                String login_deviceid = "Android" + "," + "JPUSH" + "," + Cache.userID;
                 String login_lang = "zh_CN";
                 LoginRequest mLoginRequest = new LoginRequest(client_id,req_time,sign_key,user_id,password,finger,login_type,login_deviceid,login_lang);
                 String json = mGson.toJson(mLoginRequest);
-                Log.e("TAG", json);
+                Log.e("login", json);
 
                 String url = "http://api.pp-panda.cc:8080/v1/user/userlogin";
 
@@ -299,7 +307,7 @@ public class LoginActivity extends Activity {
                 String mResult = null;
                 try {
                     mResult = mResponse.body().string();
-                    Log.e("TAG", "mResponse.body().string() = \n" + mResult);
+                    Log.e("login", "mResponse.body().string() = \n" + mResult);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -312,9 +320,9 @@ public class LoginActivity extends Activity {
                     LoginResponse mLoginResponse = mGson.fromJson(mResult,LoginResponse.class);
                     String body = mLoginResponse.getBody().toString();
                     Cache.accessToken = mLoginResponse.getBody().getAccess_token();
-                    Log.e("TAG", "code = " + code2);
-                    Log.e("TAG", "code_msg = " + codeMsg2);
-                    Log.e("TAG", "body = " + body);
+                    Log.e("login", "code = " + code2);
+                    Log.e("login", "code_msg = " + codeMsg2);
+                    Log.e("login", "body = " + body);
 
                     Message msg = new Message();
                     msg.what = MSG_LOGIN_SUCCEED;
@@ -338,10 +346,11 @@ public class LoginActivity extends Activity {
             @Override
             public void run() {
                 String access_token = Cache.accessToken;
-                int user_id = Cache.userID;
-                GetBaseInfoRequest mGetBaseInfoRequest = new GetBaseInfoRequest(access_token,user_id);
+                ArrayList<Integer> user_ids = new ArrayList<>();
+                user_ids.add(Cache.userID);
+                GetBaseInfoRequest mGetBaseInfoRequest = new GetBaseInfoRequest(access_token,user_ids);
                 String json = mGson.toJson(mGetBaseInfoRequest);
-                Log.e("TAG",json);
+                Log.e("getBaseInfo",json);
 
                 String url = "http://api.pp-panda.cc:8080/v1/user/userprofileget";
 
@@ -363,7 +372,7 @@ public class LoginActivity extends Activity {
                 String mResult = null;
                 try {
                     mResult = mResponse.body().string();
-                    Log.e("TAG", "mResponse.body().string() = \n" + mResult);
+                    Log.e("getBaseInfo", "mResponse.body().string() = \n" + mResult);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -375,17 +384,21 @@ public class LoginActivity extends Activity {
                     GetBaseInfoResponse mGetBaseInfoResponse = mGson.fromJson(mResult,GetBaseInfoResponse.class);
                     String body = mGetBaseInfoResponse.getBody().toString();
                     ArrayList<BaseInfoEntity> mBaseInfo = mGetBaseInfoResponse.getBody().getPis();
-                    for (int i=0;i<mBaseInfo.size();i++){
-                        Cache.mBaseInfoEntity.put(mBaseInfo.get(i).getUser_id(),mBaseInfo.get(i));
+                    if (mBaseInfo == null){
+                        getBaseInfo = true;
+                        judgeSucceed();
+                    }else{
+                        for(int i=0;i<mBaseInfo.size();i++){
+                            Cache.mBaseInfoEntitys.put(mBaseInfo.get(i).getUser_id(),mBaseInfo.get(i));
+                        }
+                        getBaseInfo = true;
+                        judgeSucceed();
+
+                        Log.e("getBaseInfo", "body = " + body);
                     }
-                    getBaseInfo = true;
-
-                    Log.e("TAG", "code = " + code3);
-                    Log.e("TAG", "code_msg = " + codeMsg3);
-                    Log.e("TAG", "body = " + body);
-
                 }else {
-                    getBaseInfo();
+//                    getBaseInfo();
+                    mHandler.sendEmptyMessage(MSG_GET_BASE_INFO_FAILED);
                 }
             }
         };
@@ -399,10 +412,11 @@ public class LoginActivity extends Activity {
             @Override
             public void run(){
                 String access_token = Cache.accessToken;
-                int user_id = Cache.userID;
-                GetHccDataRankRequset mGetHccDataRankRequset = new GetHccDataRankRequset(access_token,user_id);
+                ArrayList<Integer> user_ids = new ArrayList<>();
+                user_ids.add(Cache.userID);
+                GetHccDataRankRequset mGetHccDataRankRequset = new GetHccDataRankRequset(access_token,user_ids);
                 String json = mGson.toJson(mGetHccDataRankRequset);
-                Log.e("TAG",json);
+                Log.e("getHccDataRank",json);
 
                 String url = "http://api.pp-panda.cc:8080/v1/hccdata/hccdatarank";
 
@@ -420,7 +434,7 @@ public class LoginActivity extends Activity {
                 String mResult = null;
                 try {
                     mResult = mResponse.body().string();
-                    Log.e("TAG", "mResponse.body().string() = \n" + mResult);
+                    Log.e("getHccDataRank", "mResponse.body().string() = \n" + mResult);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -432,17 +446,21 @@ public class LoginActivity extends Activity {
                     GetHccDataRankResponse mGetHccDataRankResponse = mGson.fromJson(mResult,GetHccDataRankResponse.class);
                     String body = mGetHccDataRankResponse.getBody().toString();
                     ArrayList<HccDataRankEntity> mHccDataRank = mGetHccDataRankResponse.getBody().getRis();
-                    for(int i=0;i<mHccDataRank.size();i++){
-                        Cache.mHccDataRankEntity.put(mHccDataRank.get(i).getUser_id(),mHccDataRank.get(i));
+                    if (mHccDataRank == null){
+                        getHccDataRank = true;
+                        judgeSucceed();
+                    }else{
+                        for(int i=0;i<mHccDataRank.size();i++){
+                            Cache.mHccDataRankEntitys.put(mHccDataRank.get(i).getUser_id(),mHccDataRank.get(i));
+                        }
+                        getHccDataRank = true;
+                        judgeSucceed();
+
+                        Log.e("getHccDataRank", "body = " + body);
                     }
-                    getHccDataRank = true;
-
-                    Log.e("TAG", "code = " + code4);
-                    Log.e("TAG", "code_msg = " + codeMsg4);
-                    Log.e("TAG", "body = " + body);
-
                 }else {
-                    getHccDataRank();
+//                    getHccDataRank();
+                    mHandler.sendEmptyMessage(MSG_GET_HCC_DATA_RANK_FAILED);
                 }
             }
         };
@@ -460,7 +478,6 @@ public class LoginActivity extends Activity {
 //        };
 //        mDictRelation.start();
 //    }
-
 
 }
 
