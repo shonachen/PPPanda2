@@ -1,5 +1,6 @@
 package com.pppanda.activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ public class MainActivity extends FragmentActivity {
     private ViewPager viewPager;
     private RadioGroup radioGroup;
     private RadioButton rbHome,rbHealthdata,rbIllmanagement,rbMyself;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends FragmentActivity {
         //设置状态栏颜色
         StatusBarUtils.compat(this, Color.rgb(27,161,212));
         setContentView(R.layout.activity_main);
+        mContext = this;
 
         initView();
     }
@@ -76,6 +79,7 @@ public class MainActivity extends FragmentActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         HomeFragment mHomeFragment = new HomeFragment();
+        mHomeFragment.setContext(MainActivity.this);
         HealthDataFragment mHealthDataFragment = new HealthDataFragment();
         IllManagementFragment mIllManagementFragment = new IllManagementFragment();
         MyselfFragment mMyselfFragment = new MyselfFragment();

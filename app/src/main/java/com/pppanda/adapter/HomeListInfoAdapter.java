@@ -49,6 +49,9 @@ public class HomeListInfoAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder mViewHolder = null;
         if (convertView==null){
+            if(mContext == null){
+                Log.e("TAG", "mContex == null");
+            }
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.item_home_information,parent,false);
 

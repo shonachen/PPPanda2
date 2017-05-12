@@ -14,5 +14,9 @@
     <color name="myself_remark_color">#808282</color>
     <color name="myself_item_color">#ffffff</color>
     <color name="home_score">#27ABDC</color>
+    <color name="fragment_background_color">#E7EAEF</color>
+
+    <color name="identify_hint_check">#1BA1D4</color>
+    <color name="identify_hint_nocheck">#AEAEAE</color>
 
 </resources>

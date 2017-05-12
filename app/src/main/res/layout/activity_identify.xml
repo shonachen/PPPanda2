@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_identify"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/tv_identify_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="身份认证"
+        android:textSize="@dimen/title_text_size"
+        android:textColor="#ffffff"
+        android:background="@color/title"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tv_identify_title"
+        android:background="#ffffff">
+
+        <RelativeLayout
+            android:id="@+id/identify_write_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/identify_write_info_number"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/identify_number_check"
+                android:text="1"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="50dp"/>
+
+            <TextView
+                android:id="@+id/identify_write_info_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@+id/identify_write_info_number"
+                android:text="填写资料"
+                android:textColor="@color/identify_hint_check"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="#22A0EA"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/identify_upload_credentials"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/identify_upload_credentials_number"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/identify_number_nocheck"
+                android:text="2"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="50dp"/>
+
+            <TextView
+                android:id="@+id/identify_upload_credentials_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@+id/identify_upload_credentials_number"
+                android:text="上传证件"
+                android:textColor="@color/identify_hint_nocheck"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="#22A0EA"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

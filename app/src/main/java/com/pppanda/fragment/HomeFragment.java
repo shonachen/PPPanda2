@@ -20,6 +20,7 @@ import com.pppanda.adapter.HomeListInfoAdapter;
 import com.pppanda.cache.Cache;
 import com.pppanda.entity.HomeListInfoEntity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 //}
 public class HomeFragment extends Fragment {
     Context mContext;
+    View view;
     ImageView homeAddFamily;
     RelativeLayout homeData;
     TextView homeScore;
@@ -51,26 +53,28 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mContext = getActivity();
 //        startActivity(new Intent(getActivity(), LoginActivity.class));//跳转页面
 //
 //         Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, null);
         homeAddFamily = (ImageView)view.findViewById(R.id.iv_home_addfamily);
         homeScore = (TextView)view.findViewById(R.id.tv_home_score);
         card_status = Cache.mBaseInfoEntitys.get(Cache.userID).getCard_status();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//设置时间显示格式
 
         if (card_status != 3){
             int hInfoHead = R.mipmap.icon_team;
             String hInfoName = "PP熊猫团队";
             String hInfoContent = "欢迎使用PP熊猫";
-            String hInfoYear = "2017/5/11";
+            String hInfoYear = sdf.format(new java.util.Date());//获取系统时间
 
             final ArrayList<HomeListInfoEntity> mList = new ArrayList<>();
             HomeListInfoEntity mHomeListInfoEntity = new HomeListInfoEntity(hInfoHead,hInfoName,hInfoContent,hInfoYear);
             mList.add(mHomeListInfoEntity);
 
             ListView lvHomeInfo = (ListView)view.findViewById(R.id.lv_home_information);
-            HomeListInfoAdapter mHomeListInfoAdapter = new HomeListInfoAdapter(mContext,mList);
+            HomeListInfoAdapter mHomeListInfoAdapter = new HomeListInfoAdapter(mContext, mList);
             lvHomeInfo.setAdapter(mHomeListInfoAdapter);
 
 //            return view;
@@ -78,16 +82,16 @@ public class HomeFragment extends Fragment {
             homeData = (RelativeLayout)view.findViewById(R.id.home_data);
             homeData.setVisibility(View.VISIBLE);
             homeAddFamily.setVisibility(View.VISIBLE);
-            homeScore.setText(Cache.mHccDataRankEntitys.get(Cache.userID).getScore() + "");
+            homeScore.setText((int) Cache.mHccDataRankEntitys.get(Cache.userID).getScore() + "");
 
             int[] hInfoHead = {R.mipmap.icon_team,R.mipmap.icon_famliy,R.mipmap.icon_manage,R.mipmap.icon_info};
             String[] hInfoName = this.getResources().getStringArray(R.array.home_info_name);
             String[] hInfoContent = this.getResources().getStringArray(R.array.home_info_content);
-            String[] hInfoYear = {"2017/05/08","2017/05/09","2017/05/10","2017/05/11"};
+            String hInfoYear = sdf.format(new java.util.Date());
 
             final ArrayList<HomeListInfoEntity> mList = new ArrayList<>();
-            for(int i=0;i<3;i++){
-                HomeListInfoEntity mHomeListInfoEntity = new HomeListInfoEntity(hInfoHead[i%3],hInfoName[i%3],hInfoContent[i%3],hInfoYear[i%3]);
+            for(int i=0;i<4;i++){
+                HomeListInfoEntity mHomeListInfoEntity = new HomeListInfoEntity(hInfoHead[i%4],hInfoName[i%4],hInfoContent[i%4],hInfoYear);
                 mList.add(mHomeListInfoEntity);
             }
             ListView lvHomeInfo = (ListView)view.findViewById(R.id.lv_home_information);

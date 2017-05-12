@@ -4,6 +4,7 @@ package com.pppanda.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Allocation;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -12,9 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pppanda.R;
 import com.pppanda.activity.PersonalActivity;
+import com.pppanda.cache.Cache;
 
 
 /**
@@ -22,23 +26,79 @@ import com.pppanda.activity.PersonalActivity;
  */
 
 public class MyselfFragment extends Fragment {
-    RelativeLayout myInfo;
-    Context context;
+    Context mContext;
     View view;
+    int card_status;
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
+    RelativeLayout myInfo;
+    RelativeLayout myIdentify;
+    RelativeLayout myFamily;
+    RelativeLayout myPhone;
+    RelativeLayout myPassword;
+    RelativeLayout myAboutUs;
 
+    ImageView ivMyHead;
+    TextView tvMyNickName;
+    TextView tvMyName;
+    TextView tvIdentifyRemark;
+    TextView tvPhoneRemark;
 
-        @Override
+//    public void setContext(Context context) {
+//        this.mContext = mContext;
+//    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-            // Inflate the layout for this fragment
-            view = inflater.inflate(R.layout.fragment_myself, container, false);
-            myInfo = (RelativeLayout)view.findViewById(R.id.my_info);
+        mContext = getActivity();
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_myself,null);
+        card_status = Cache.mBaseInfoEntitys.get(Cache.userID).getCard_status();
+
+        myInfo = (RelativeLayout)view.findViewById(R.id.my_info);
+        myIdentify = (RelativeLayout)view.findViewById(R.id.my_identify);
+        myFamily = (RelativeLayout)view.findViewById(R.id.my_family);
+        myPhone = (RelativeLayout)view.findViewById(R.id.my_phone);
+        myPassword = (RelativeLayout)view.findViewById(R.id.my_password);
+        myAboutUs = (RelativeLayout)view.findViewById(R.id.my_aboutus);
+
+        ivMyHead = (ImageView)view.findViewById(R.id.iv_myself_head);
+        tvMyNickName =(TextView)view.findViewById(R.id.tv_myself_nickname);
+        tvMyName = (TextView)view.findViewById(R.id.tv_myself_name);
+        tvIdentifyRemark = (TextView)view.findViewById(R.id.tv_myself_identify_remark);
+        tvPhoneRemark = (TextView)view.findViewById(R.id.tv_myself_phone_remark);
 
 
-            return view;
+        tvPhoneRemark.setText(Cache.mBaseInfoEntitys.get(Cache.userID).getMob_phone());
+
+        if (card_status != 3){
+            tvMyNickName.setText(Cache.mBaseInfoEntitys.get(Cache.userID).getMob_phone());
+            tvMyName.setText("游客");
+            tvIdentifyRemark.setText("未认证");
+        }else {
+            tvMyNickName.setText(Cache.mBaseInfoEntitys.get(Cache.userID).getLike_name());
+            tvMyName.setText(Cache.mBaseInfoEntitys.get(Cache.userID).getName());
+            tvIdentifyRemark.setText("已认证");
         }
+
+        return view;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        //身份认证点击事件
+        myIdentify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (card_status != 3){
+                    Toast.makeText(mContext, "还未认证", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(mContext,"您已经认证过了" ,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
 }

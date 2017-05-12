@@ -34,7 +34,10 @@ import com.pppanda.response.UserIdResponse;
 import com.pppanda.util.Md5Util;
 import com.pppanda.util.StatusBarUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import okhttp3.MediaType;
