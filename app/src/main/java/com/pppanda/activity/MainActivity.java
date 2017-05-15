@@ -37,6 +37,24 @@ public class MainActivity extends FragmentActivity {
 
         initView();
     }
+//从Fragment返回时返回的页面
+    protected void onResume() {
+        int id = getIntent().getIntExtra("fragid", 0);
+
+        if (id == 0 ) {
+            viewPager.setCurrentItem(0);
+            //0代表”首页“所在条目的位置
+        }else if (id == 1){
+            viewPager.setCurrentItem(1);
+        }
+        else if (id == 2){
+            viewPager.setCurrentItem(2);
+        }
+        else if (id == 3){
+            viewPager.setCurrentItem(3);
+        }
+        super.onResume();
+    }
 
     private void initView(){
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);

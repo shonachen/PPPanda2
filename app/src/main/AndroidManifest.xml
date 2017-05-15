@@ -20,6 +20,8 @@
         <activity android:name=".activity.ForgetPasswordActivity"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.ProtocolActivity"/>
+        <activity android:name=".activity.IdentifyActivity"/>
+        <activity android:name=".activity.MyFamilyActivity"/>
 
 
     </application>

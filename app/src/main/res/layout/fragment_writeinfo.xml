@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragment_background_color">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="@string/identify_write_info"
+        android:textColor="#7F8287"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff">
+
+        <ImageView
+            android:id="@+id/iv_name"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_name"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="真实姓名"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/et_identify_write_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:hint="请输入姓名"
+            android:textColorHint="#A0A0A0"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:gravity="right|center_vertical"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:layout_marginTop="1dp">
+
+        <ImageView
+            android:id="@+id/iv_IDcard"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_id"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_IDcard"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="身份证号"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/et_identify_write_IDcard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:hint="请输入身份证号"
+            android:textColorHint="#A0A0A0"
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:gravity="right|center_vertical"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="10dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_next"
+        android:layout_marginTop="40dp"
+        android:text="下一步"
+        android:textColor="#ffffff"
+        android:textSize="17sp"
+        android:gravity="center"/>
+
+</LinearLayout>

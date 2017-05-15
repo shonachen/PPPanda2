@@ -4,9 +4,7 @@ package com.pppanda.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Allocation;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pppanda.R;
-import com.pppanda.activity.PersonalActivity;
+import com.pppanda.activity.IdentifyActivity;
+import com.pppanda.activity.MyFamilyActivity;
 import com.pppanda.cache.Cache;
 
 
@@ -92,12 +91,29 @@ public class MyselfFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (card_status != 3){
-                    Toast.makeText(mContext, "还未认证", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, IdentifyActivity.class);
+                    startActivity(intent);
                 }else {
                     Toast.makeText(mContext,"您已经认证过了" ,Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        //我的家人点击事件
+        myFamily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (card_status != 3){
+                    Toast.makeText(mContext,"请先进行身份认证",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(mContext, MyFamilyActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        //我的手机点击事件
+
 
     }
 

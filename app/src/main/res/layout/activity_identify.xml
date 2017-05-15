@@ -5,26 +5,15 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/tv_identify_title"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:gravity="center"
-        android:text="身份认证"
-        android:textSize="@dimen/title_text_size"
-        android:textColor="#ffffff"
-        android:background="@color/title"/>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <include layout="@layout/title"/>
 
     <LinearLayout
+        android:id="@+id/ll_identify"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_below="@+id/tv_identify_title"
-        android:background="#ffffff">
+        android:layout_height="40dp"
+        android:background="#ffffff"
+        android:layout_below="@+id/title"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:id="@+id/identify_write_info"
@@ -34,13 +23,13 @@
 
             <TextView
                 android:id="@+id/identify_write_info_number"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/identify_number_check"
                 android:text="1"
                 android:gravity="center"
                 android:textColor="#ffffff"
-                android:textSize="12sp"
+                android:textSize="17sp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="50dp"/>
 
@@ -53,10 +42,11 @@
                 android:text="填写资料"
                 android:textColor="@color/identify_hint_check"
                 android:gravity="center"
-                android:textSize="14sp"
+                android:textSize="17sp"
                 android:layout_centerVertical="true"/>
 
             <ImageView
+                android:id="@+id/iv_write_line"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_alignParentBottom="true"
@@ -72,13 +62,13 @@
 
             <TextView
                 android:id="@+id/identify_upload_credentials_number"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@drawable/identify_number_nocheck"
                 android:text="2"
                 android:gravity="center"
                 android:textColor="#ffffff"
-                android:textSize="12sp"
+                android:textSize="17sp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="50dp"/>
 
@@ -91,10 +81,11 @@
                 android:text="上传证件"
                 android:textColor="@color/identify_hint_nocheck"
                 android:gravity="center"
-                android:textSize="14sp"
+                android:textSize="17sp"
                 android:layout_centerVertical="true"/>
 
             <ImageView
+                android:id="@+id/iv_upload_line"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_alignParentBottom="true"
@@ -104,6 +95,19 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/identify_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_identify"/>
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/identify_fragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/ll_identify"-->
+        <!--android:background="@color/fragment_background_color"/>-->
 
 
 </RelativeLayout>
