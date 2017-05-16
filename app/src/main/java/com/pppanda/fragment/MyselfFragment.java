@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pppanda.R;
+import com.pppanda.activity.AboutUsActivity;
 import com.pppanda.activity.IdentifyActivity;
+import com.pppanda.activity.ModifyPasswordActivity;
 import com.pppanda.activity.MyFamilyActivity;
+import com.pppanda.activity.MyPhoneActivity;
 import com.pppanda.cache.Cache;
 
 
@@ -113,7 +116,31 @@ public class MyselfFragment extends Fragment {
         });
 
         //我的手机点击事件
+        myPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MyPhoneActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        //修改密码点击时间
+        myPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ModifyPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //关于我们点击事件
+        myAboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, AboutUsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
