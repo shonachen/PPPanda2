@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,13 @@ public class HomeFragment extends Fragment {
             homeData = (RelativeLayout)view.findViewById(R.id.home_data);
             homeData.setVisibility(View.VISIBLE);
             homeAddFamily.setVisibility(View.VISIBLE);
-            homeScore.setText((int) Cache.mHccDataRankEntitys.get(Cache.userID).getScore() + "");
+
+            if (Cache.mHccDataRankEntitys.get(Cache.userID) == null){
+                homeScore.setText("--");
+            }else {
+                homeScore.setText((int) Cache.mHccDataRankEntitys.get(Cache.userID).getScore() + "");
+            }
+
 
             int[] hInfoHead = {R.mipmap.icon_team,R.mipmap.icon_famliy,R.mipmap.icon_manage,R.mipmap.icon_info};
             String[] hInfoName = this.getResources().getStringArray(R.array.home_info_name);

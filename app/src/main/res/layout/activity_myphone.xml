@@ -114,7 +114,7 @@
         android:id="@+id/btn_complete"
         android:layout_width="240dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/btn_identify_code"
+        android:layout_below="@+id/btn_send_code"
         android:layout_marginTop="40dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/btn_next"
