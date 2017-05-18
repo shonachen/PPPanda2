@@ -19,4 +19,7 @@
     <color name="identify_hint_check">#1BA1D4</color>
     <color name="identify_hint_nocheck">#AEAEAE</color>
 
+    <color name="about_us_title">#000000</color>
+    <color name="about_us_value">#7D7D7D</color>
+
 </resources>

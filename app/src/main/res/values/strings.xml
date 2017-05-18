@@ -10,5 +10,20 @@
     </string>
 
     <string name="identify_write_info">填写真实的身份信息，才可以享有更多的健康服务</string>
+    <string name="about_us_tellphone_title">客服电话</string>
+    <string name="about_us_tellphone">028-85577447</string>
+    <string name="about_us_service_email_title">客服部邮箱</string>
+    <string name="about_us_service_email">service@pp-panda.com</string>
+    <string name="about_us_marketing_email_title">销售部邮箱</string>
+    <string name="about_us_marketing_email">marketing@pp-panda.com</string>
+    <string name="about_us_web_title">官方网站</string>
+    <string name="about_us_web">www.pp-panda.com</string>
+    <string name="about_us_weichat_title">微信公众号</string>
+    <string name="about_us_weichat">PP熊猫的健康生活</string>
+
+    <string name="about_us_bottm_info">
+        Ver1.1.0\n成都早寻智能科技股份有限公司\nCopyright© Foresight All right reserved
+    </string>
+
 
 </resources>

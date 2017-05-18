@@ -68,8 +68,8 @@ public class MyPhoneActivity extends Activity {
                     Toast.makeText(MyPhoneActivity.this,msgObj,Toast.LENGTH_SHORT).show();
                     break;
                 case MSG_CHECK_CODE_SUCCEED:
-                    String newPhone = (String) msg.obj;
-                    tvPhoneRemark.setText(newPhone);
+//                    String newPhone = (String) msg.obj;
+//                    tvPhoneRemark.setText(newPhone);
                     Intent intent = new Intent(MyPhoneActivity.this, MainActivity.class);
                     intent.putExtra("fragid",3);//判定返回MainActivity的Fragment
 
@@ -234,9 +234,9 @@ public class MyPhoneActivity extends Activity {
                     MyPhoneCheckCodeResponse mMyPhoneCheckCodeResponse = mGson.fromJson(mResult,MyPhoneCheckCodeResponse.class);
                     Cache.mBaseInfoEntitys.get(Cache.userID).setMob_phone(etNewPhone.getText().toString());
                     Message msg = new Message();
-                    msg.what = MSG_CHECK_CODE_SUCCEED;
-                    msg.obj = etNewPhone.getText().toString();;
-                    mHandler.sendMessage(msg);
+//                    msg.what = MSG_CHECK_CODE_SUCCEED;
+//                    msg.obj = etNewPhone.getText().toString();
+                    mHandler.sendEmptyMessage(MSG_CHECK_CODE_SUCCEED);
                 }else {
                     Message msg = new Message();
                     msg.what = MSG_CHECK_CODE_FAILED;

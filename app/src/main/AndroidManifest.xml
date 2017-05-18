@@ -39,6 +39,12 @@
             android:windowSoftInputMode="stateHidden|stateUnchanged">
         </activity>
 
+        <activity android:name=".activity.ModifyPasswordActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged">
+        </activity>
+
+        <activity android:name=".activity.AboutUsActivity"/>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
