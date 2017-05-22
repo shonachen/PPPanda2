@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -42,6 +43,8 @@ public class ModifyPasswordActivity extends Activity{
 
     EditText etOldPassword,etNewPassword;
     ImageView ivOldEye,ivNewEye;
+    ImageView ivPassBack;
+    TextView tvPassTitle;
     Button btnPasswoerdComplete;
     boolean eyeOpen = false;
 
@@ -79,17 +82,21 @@ public class ModifyPasswordActivity extends Activity{
         etNewPassword = (EditText)findViewById(R.id.et_new_password);
         ivOldEye = (ImageView)findViewById(R.id.iv_old_password_eye);
         ivNewEye = (ImageView)findViewById(R.id.iv_new_password_eye);
+        ivPassBack = (ImageView)findViewById(R.id.back);
+        tvPassTitle = (TextView)findViewById(R.id.tv_title);
         btnPasswoerdComplete = (Button)findViewById(R.id.btn_passwoer_complete);
 
-        EyeListener listener = new EyeListener();
+        ChangeListener listener = new ChangeListener();
+        tvPassTitle.setText("修改密码");
         ivOldEye.setOnClickListener(listener);
         ivNewEye.setOnClickListener(listener);
+        ivPassBack.setOnClickListener(listener);
         btnPasswoerdComplete.setOnClickListener(listener);
 
     }
 
     //密码明文密文切换
-    class EyeListener implements View.OnClickListener{
+    class ChangeListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             switch (v.getId()){
@@ -117,6 +124,12 @@ public class ModifyPasswordActivity extends Activity{
                     break;
                 case R.id.btn_passwoer_complete:
                     modifyPassword();
+                    break;
+                case R.id.back:
+                    Intent intent = new Intent(ModifyPasswordActivity.this,MainActivity.class);
+                    intent.putExtra("fragid",3);
+                    startActivity(intent);
+                    break;
                 default:
                     break;
             }

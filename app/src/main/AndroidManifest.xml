@@ -43,10 +43,16 @@
             android:windowSoftInputMode="stateHidden|stateUnchanged">
         </activity>
 
-        <activity android:name=".activity.AboutUsActivity"/>
+        <activity android:name=".activity.AboutUsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>   //设置了action为call时起作用
 
 </manifest>

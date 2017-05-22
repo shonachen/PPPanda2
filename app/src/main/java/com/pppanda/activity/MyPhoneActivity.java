@@ -70,6 +70,7 @@ public class MyPhoneActivity extends Activity {
                 case MSG_CHECK_CODE_SUCCEED:
 //                    String newPhone = (String) msg.obj;
 //                    tvPhoneRemark.setText(newPhone);
+                    tvPhoneRemark.setText(etNewPhone.getText());
                     Intent intent = new Intent(MyPhoneActivity.this, MainActivity.class);
                     intent.putExtra("fragid",3);//判定返回MainActivity的Fragment
 
@@ -232,8 +233,6 @@ public class MyPhoneActivity extends Activity {
                 String codeMsg1 = mBaseResponse.getCode_msg();
                 if (code1 == 0){
                     MyPhoneCheckCodeResponse mMyPhoneCheckCodeResponse = mGson.fromJson(mResult,MyPhoneCheckCodeResponse.class);
-                    Cache.mBaseInfoEntitys.get(Cache.userID).setMob_phone(etNewPhone.getText().toString());
-                    Message msg = new Message();
 //                    msg.what = MSG_CHECK_CODE_SUCCEED;
 //                    msg.obj = etNewPhone.getText().toString();
                     mHandler.sendEmptyMessage(MSG_CHECK_CODE_SUCCEED);

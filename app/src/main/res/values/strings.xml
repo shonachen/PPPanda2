@@ -10,6 +10,7 @@
     </string>
 
     <string name="identify_write_info">填写真实的身份信息，才可以享有更多的健康服务</string>
+    <string name="identify_upload_info">您的照片仅用于审核，我们将为您严格保密</string>
     <string name="about_us_tellphone_title">客服电话</string>
     <string name="about_us_tellphone">028-85577447</string>
     <string name="about_us_service_email_title">客服部邮箱</string>
@@ -22,7 +23,7 @@
     <string name="about_us_weichat">PP熊猫的健康生活</string>
 
     <string name="about_us_bottm_info">
-        Ver1.1.0\n成都早寻智能科技股份有限公司\nCopyright© Foresight All right reserved
+        Ver 1.1.0\n成都早寻智能科技股份有限公司\nCopyright© Foresight All right reserved
     </string>
 
 

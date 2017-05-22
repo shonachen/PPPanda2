@@ -45,7 +45,10 @@
                 android:layout_height="wrap_content"
                 android:text="昵称"
                 android:textColor="@color/myself_text_color"
-                android:textSize="@dimen/myself_text_size"/>
+                android:textSize="@dimen/myself_text_size"
+                android:maxLines="1"
+                android:maxEms="10"
+                android:ellipsize="end"/>
 
             <TextView
                 android:id="@+id/tv_myself_name"
