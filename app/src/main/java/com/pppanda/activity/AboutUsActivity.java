@@ -21,7 +21,7 @@ import okhttp3.HttpUrl;
 
 public class AboutUsActivity extends Activity {
     ImageView ivBack;
-    TextView tvAboutUsTitle,tvTellPhone;
+    TextView tvAboutUsTitle,tvTellPhone,tvServiceEmail,tvMarketingEmail,tvWeb,tvWeichat;
     LinearLayout tellPhone,serviceEmail,marketingEmail,web,weichat;
 
     @Override
@@ -38,6 +38,11 @@ public class AboutUsActivity extends Activity {
         ivBack = (ImageView)findViewById(R.id.back);
         tvAboutUsTitle = (TextView)findViewById(R.id.tv_title);
         tvTellPhone = (TextView)findViewById(R.id.tv_tellphone);
+        tvServiceEmail = (TextView)findViewById(R.id.tv_service_email);
+        tvMarketingEmail = (TextView)findViewById(R.id.tv_marketing_email);
+        tvWeb = (TextView)findViewById(R.id.tv_web);
+        tvWeichat = (TextView)findViewById(R.id.tv_weichat_email);
+
         tellPhone = (LinearLayout)findViewById(R.id.about_us_tellphone);
         serviceEmail = (LinearLayout)findViewById(R.id.about_us_service);
         marketingEmail = (LinearLayout) findViewById(R.id.about_us_marketing);
@@ -72,11 +77,19 @@ public class AboutUsActivity extends Activity {
                     startActivity(tellIntent);
                     break;
                 case R.id.about_us_service:
-
+                    String serviceEmail = tvServiceEmail.getText().toString();
+                    Intent serviceIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("mailto:" + serviceEmail));
+                    startActivity(serviceIntent);
                     break;
                 case R.id.about_us_marketing:
+                    String marketingEmail = tvMarketingEmail.getText().toString();
+                    Intent marketingIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("mailto:" + marketingEmail));
+                    startActivity(marketingIntent);
                     break;
                 case R.id.about_us_web:
+                    String web = tvWeb.getText().toString();
+                    Intent webIntent = new Intent(Intent.ACTION_SEARCH, Uri.parse("http://:" + web));
+                    startActivity(webIntent);
                     break;
                 case R.id.about_us_weichat:
                     break;
