@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fragment_background_color">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,10 +39,64 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/my_info"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="#ffffff">
+
+        <com.pppanda.util.XCRoundImageView
+            android:id="@+id/iv_my_head"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/head"/>
+
+        <LinearLayout
+            android:id="@+id/my_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/iv_my_head"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_my_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textColor="@color/myself_text_color"
+                android:textSize="@dimen/myself_text_size"/>
+
+            <TextView
+                android:id="@+id/tv_my_relation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关系"
+                android:textColor="#A0A0A0"
+                android:textSize="11sp"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_my_nfc"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/btn_nfc_u"/>
+
+    </RelativeLayout>
+
     <ListView
         android:id="@+id/lv_myfamily"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
         android:scrollbars="none"/>
 
 </LinearLayout>

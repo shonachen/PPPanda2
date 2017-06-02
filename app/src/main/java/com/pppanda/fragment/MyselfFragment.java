@@ -17,10 +17,15 @@ import android.widget.Toast;
 import com.pppanda.R;
 import com.pppanda.activity.AboutUsActivity;
 import com.pppanda.activity.IdentifyActivity;
+import com.pppanda.activity.MainActivity;
 import com.pppanda.activity.ModifyPasswordActivity;
 import com.pppanda.activity.MyFamilyActivity;
 import com.pppanda.activity.MyPhoneActivity;
 import com.pppanda.cache.Cache;
+import com.pppanda.transformation.PicassoCircleTransform;
+import com.pppanda.util.FSTextUtil;
+import com.pppanda.util.PicassoUtil;
+import com.squareup.picasso.MemoryPolicy;
 
 
 /**
@@ -70,7 +75,19 @@ public class MyselfFragment extends Fragment {
         tvIdentifyRemark = (TextView)view.findViewById(R.id.tv_myself_identify_remark);
         tvPhoneRemark = (TextView)view.findViewById(R.id.tv_myself_phone_remark);
 
-
+//        String path = mMyFamilyInfoEntity.getfHead();
+//        if(!FSTextUtil.isEmptyAndNull(path)){
+//            PicassoUtil.with(MyFamilyActivity.this).load(path)
+//                    .placeholder(R.mipmap.head)
+//                    .error(R.mipmap.head)
+//                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+//                    .transform(new PicassoCircleTransform())
+//                    .into(ivMyHead);
+//        }else{
+//            PicassoUtil.with(MyFamilyActivity.this).load(R.mipmap.head)
+//                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+//                    .transform(new PicassoCircleTransform()).into(ivMyHead);
+//        }
         tvPhoneRemark.setText(Cache.mBaseInfoEntitys.get(Cache.userID).getMob_phone());
 
         if (card_status != 3){

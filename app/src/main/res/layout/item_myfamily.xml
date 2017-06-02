@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="68dp"
-    android:background="#ffffff">
+    android:layout_height="match_parent"
+    android:background="@color/fragment_background_color"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_mafamily_head"
-        android:layout_width="43dp"
-        android:layout_height="43dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:src="@mipmap/head"/>
+    <RelativeLayout
+        android:id="@+id/layout_myfamily"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="#ffffff">
 
-    <LinearLayout
-        android:id="@+id/my_name"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/iv_mafamily_head"
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical"
-        android:gravity="center_vertical">
+        <com.pppanda.util.XCRoundImageView
+            android:id="@+id/iv_myfamily_head"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/head"/>
 
-        <TextView
-            android:id="@+id/tv_myself_nickname"
+        <LinearLayout
+            android:id="@+id/my_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="昵称"
-            android:textColor="@color/myself_text_color"
-            android:textSize="@dimen/myself_text_size"/>
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/iv_myfamily_head"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tv_myself_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="关系"
-            android:textColor="#A0A0A0"
-            android:textSize="11sp"
-            android:layout_marginTop="5dp"/>
+            <TextView
+                android:id="@+id/tv_myfamily_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textColor="@color/myself_text_color"
+                android:textSize="@dimen/myself_text_size"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_myfamily_relation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关系"
+                android:textColor="#A0A0A0"
+                android:textSize="11sp"
+                android:layout_marginTop="5dp"/>
 
-    <ImageView
-        android:id="@+id/iv_myfamily_nfc"
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:src="@mipmap/btn_nfc_u"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_myfamily_nfc"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/btn_nfc_u"/>
+
+    </RelativeLayout>
 
 
-</RelativeLayout>
+
+
+</LinearLayout>

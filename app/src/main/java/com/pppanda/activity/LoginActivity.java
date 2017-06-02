@@ -21,14 +21,20 @@ import com.google.gson.Gson;
 import com.pppanda.R;
 import com.pppanda.cache.Cache;
 import com.pppanda.entity.BaseInfoEntity;
+import com.pppanda.entity.DictRelationEntity;
 import com.pppanda.entity.HccDataRankEntity;
+import com.pppanda.entity.UserRelationEntity;
 import com.pppanda.request.GetBaseInfoRequest;
+import com.pppanda.request.GetDictRelationRequest;
 import com.pppanda.request.GetHccDataRankRequset;
+import com.pppanda.request.GetUserRelationRequset;
 import com.pppanda.request.LoginRequest;
 import com.pppanda.request.UserIdRequest;
 import com.pppanda.response.BaseResponse;
 import com.pppanda.response.GetBaseInfoResponse;
+import com.pppanda.response.GetDictRelationResponse;
 import com.pppanda.response.GetHccDataRankResponse;
+import com.pppanda.response.GetUserRelationResponse;
 import com.pppanda.response.LoginResponse;
 import com.pppanda.response.UserIdResponse;
 import com.pppanda.util.Md5Util;
@@ -59,13 +65,19 @@ public class LoginActivity extends Activity {
     private static final int MSG_GET_BASE_INFO_FAILED = 0X18;
 //    private static final int MSG_GET_HCC_DATA_RANK_SUCCEED = 0X19;
     private static final int MSG_GET_HCC_DATA_RANK_FAILED = 0X20;
+//    private static final int MSG_GET_USER_RELATION_SUCCEED = 0X21;
+    private static final int MSG_GET_USER_RELATION_FAILED = 0X22;
+//    private static final int MSG_GET_DICT_RELATION_SUCCEED = 0X23;
+    private static final int MSG_GET_DICT_RELATION_FAILED = 0X24;
+
 
     //OkHttp
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     Gson mGson = new Gson();
     boolean getBaseInfo;
     boolean getHccDataRank;
-//    boolean getDictRelation;
+    boolean getUserRelation;
+    boolean getDictRelation;
 
     public ImageView imageView;
     public EditText editText;
@@ -94,6 +106,8 @@ public class LoginActivity extends Activity {
 //                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     getBaseInfo();
                     getHccDataRank();
+                    getUserRelation();
+                    getDictRelation();
                     break;
                 case MSG_LOGIN_FAILED:
                     String msgObj1 = (String)msg.obj;
@@ -105,7 +119,9 @@ public class LoginActivity extends Activity {
                 case MSG_GET_HCC_DATA_RANK_FAILED:
                     Toast.makeText(LoginActivity.this,"获取数据失败",Toast.LENGTH_SHORT).show();
                     break;
-
+                case MSG_GET_USER_RELATION_FAILED:
+                    Toast.makeText(LoginActivity.this,"获取数据失败",Toast.LENGTH_SHORT).show();
+                    break;
                 default:
                     break;
             }
@@ -120,7 +136,7 @@ public class LoginActivity extends Activity {
 //    }
 
     public void judgeSucceed(){
-        if (getBaseInfo && getHccDataRank){
+        if (getBaseInfo && getHccDataRank && getUserRelation && getDictRelation){
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
         }
     }
@@ -470,17 +486,132 @@ public class LoginActivity extends Activity {
         mHccDataRank.start();
     }
 
-//    public void getDictRelation(){
-//
-//        Thread mDictRelation = new Thread(){
-//
-//            @Override
-//            public void run(){
-//
-//            }
-//        };
-//        mDictRelation.start();
-//    }
+    public void getUserRelation(){
+        Thread mUserRelation = new Thread(){
+            @Override
+            public void run() {
+                String access_token = Cache.accessToken;
+                GetUserRelationRequset mGetUserRelationRequset = new GetUserRelationRequset(access_token);
+                String json = mGson.toJson(mGetUserRelationRequset);
+                Log.e("getUserRelation",json);
+
+                String url = "http://api.pp-panda.cc:8080/v1/user/userrelationget";
+
+                OkHttpClient mOkHttpClient = new OkHttpClient();
+                Request mRequest = new Request.Builder()
+                        .url(url)
+                        .post(RequestBody.create(JSON,json))
+                        .build();
+
+                Response mResponse = null;
+                try {
+                    mResponse = mOkHttpClient.newCall(mRequest).execute();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+                String mResult = null;
+                try {
+                    mResult = mResponse.body().string();
+                    Log.e("getUserRelation", "mResponse.body().string() = \n" + mResult);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                BaseResponse mBaseResponse = mGson.fromJson(mResult, BaseResponse.class);
+                int code5 = mBaseResponse.getCode();
+                String codeMsg = mBaseResponse.getCode_msg();
+                if (code5 == 0){
+                    GetUserRelationResponse mGetUserRelationResponse = mGson.fromJson(mResult,GetUserRelationResponse.class);
+                    String body = mGetUserRelationResponse.getBody().toString();
+                    ArrayList<UserRelationEntity> mUserRelation = mGetUserRelationResponse.getBody().getRis();
+                    if (mUserRelation == null){
+                        getUserRelation = true;
+                        judgeSucceed();
+                    }else {
+                        for(int i=0;i<mUserRelation.size();i++){
+                            Cache.mUserRelationEntitys.put(mUserRelation.get(i).getUser_id(),mUserRelation.get(i));
+                        }
+                        getUserRelation = true;
+                        judgeSucceed();
+
+                        Log.e("getUserRelation", "body = " + body);
+                    }
+
+                }else {
+                    getUserRelation();
+                    mHandler.sendEmptyMessage(MSG_GET_USER_RELATION_FAILED);
+                }
+
+            }
+        };
+        mUserRelation.start();
+    }
+
+    public void getDictRelation(){
+
+        Thread mDictRelation = new Thread(){
+
+            @Override
+            public void run(){
+                String access_token = Cache.accessToken;
+                int relation_code = 0;
+                int page = 1;
+                int page_size = Integer.MAX_VALUE;
+                GetDictRelationRequest mGetDictRelationRequest = new GetDictRelationRequest(access_token,
+                        relation_code,page,page_size);
+                String json = mGson.toJson(mGetDictRelationRequest);
+                Log.e("getDictRelation",json);
+
+                String url = "http://api.pp-panda.cc:8080/v1/dict/dictrelationget";
+
+                OkHttpClient mOkHttpClient = new OkHttpClient();
+                Request mRequest = new Request.Builder()
+                        .url(url)
+                        .post(RequestBody.create(JSON,json))
+                        .build();
+
+                Response mResponse = null;
+                try {
+                    mResponse = mOkHttpClient.newCall(mRequest).execute();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+                String mResult = null;
+                try {
+                    mResult = mResponse.body().string();
+                    Log.e("getDictRelation", "mResponse.body().string() = \n" + mResult);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                BaseResponse mBaseResponse = mGson.fromJson(mResult, BaseResponse.class);
+                int code6 = mBaseResponse.getCode();
+                String codeMsg = mBaseResponse.getCode_msg();
+                if (code6 == 0){
+                    GetDictRelationResponse mGetDictRelationResponse = mGson.fromJson(mResult,GetDictRelationResponse.class);
+                    String body = mGetDictRelationResponse.getBody().toString();
+                    ArrayList<DictRelationEntity> mDictRelation = mGetDictRelationResponse.getBody().getRis();
+                    if (mDictRelation == null){
+                        getDictRelation = true;
+                        judgeSucceed();
+                    }else {
+                        for(int i=0;i<mDictRelation.size();i++){
+                            Cache.mDictRelationEntity.put(mDictRelation.get(i).getRelation_code(),mDictRelation.get(i));
+                        }
+                        getDictRelation = true;
+                        judgeSucceed();
+
+                        Log.e("getDictRelation", "body = " + body);
+                    }
+
+                }else {
+                    getDictRelation();
+                    mHandler.sendEmptyMessage(MSG_GET_DICT_RELATION_FAILED);
+                }
+            }
+        };
+        mDictRelation.start();
+    }
 
 }
 

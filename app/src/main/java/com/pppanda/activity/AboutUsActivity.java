@@ -31,10 +31,10 @@ public class AboutUsActivity extends Activity {
         StatusBarUtils.compat(this, Color.rgb(27,161,212));
         setContentView(R.layout.activity_about_us);
 
-        initView();
+        initViews();
     }
 
-    public void initView(){
+    public void initViews(){
         ivBack = (ImageView)findViewById(R.id.back);
         tvAboutUsTitle = (TextView)findViewById(R.id.tv_title);
         tvTellPhone = (TextView)findViewById(R.id.tv_tellphone);
@@ -88,10 +88,12 @@ public class AboutUsActivity extends Activity {
                     break;
                 case R.id.about_us_web:
                     String web = tvWeb.getText().toString();
-                    Intent webIntent = new Intent(Intent.ACTION_SEARCH, Uri.parse("http://:" + web));
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + web));
                     startActivity(webIntent);
                     break;
                 case R.id.about_us_weichat:
+                    Intent weichatIntent = getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+                    startActivity(weichatIntent);
                     break;
                 default:
                     break;

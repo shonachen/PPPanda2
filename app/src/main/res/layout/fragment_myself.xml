@@ -22,7 +22,7 @@
         android:layout_marginTop="20dp"
         android:background="@color/myself_item_color">
 
-        <com.pppanda.XCRoundImageView
+        <com.pppanda.util.XCRoundImageView
             android:id="@+id/iv_myself_head"
             android:layout_width="43dp"
             android:layout_height="43dp"
