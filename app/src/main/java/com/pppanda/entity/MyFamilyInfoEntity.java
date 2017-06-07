@@ -11,12 +11,14 @@ public class MyFamilyInfoEntity implements Serializable {
     String fHead;
     String fNickName;
     String fRelation;
+    boolean activity;
 
-    public MyFamilyInfoEntity(int userID, String fHead, String fNickName, String fRelation) {
+    public MyFamilyInfoEntity(int userID, String fHead, String fNickName, String fRelation,boolean activity) {
         this.userID = userID;
         this.fHead = fHead;
         this.fNickName = fNickName;
         this.fRelation = fRelation;
+        this.activity = activity;
     }
 
     public int getUserID() {
@@ -51,6 +53,14 @@ public class MyFamilyInfoEntity implements Serializable {
         this.fRelation = fRelation;
     }
 
+    public boolean isActivity() {
+        return activity;
+    }
+
+    public void setActivity(boolean activity) {
+        this.activity = activity;
+    }
+
     @Override
     public String toString() {
         return "MyFamilyInfoEntity{" +
@@ -58,6 +68,7 @@ public class MyFamilyInfoEntity implements Serializable {
                 ", fHead='" + fHead + '\'' +
                 ", fNickName='" + fNickName + '\'' +
                 ", fRelation='" + fRelation + '\'' +
+                ", activity=" + activity +
                 '}';
     }
 }

@@ -25,7 +25,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"/>
 
-        <com.pppanda.XCRoundImageView
+        <com.pppanda.util.XCRoundImageView
             android:id="@+id/iv_personal_info_head"
             android:layout_width="43dp"
             android:layout_height="43dp"

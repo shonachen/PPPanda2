@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_family_name"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_name"/>
+
+        <TextView
+            android:id="@+id/tv_family_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:text="真实姓名"
+            android:textSize="15sp"
+            android:textColor="#676767"
+            android:gravity="center_vertical"/>
+
+        <EditText
+            android:id="@+id/et_family_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:hint="请输入家人的姓名"
+            android:textColorHint="#747474"
+            android:textSize="14sp"
+            android:gravity="center_vertical|right"
+            android:paddingRight="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp">
+
+        <ImageView
+            android:id="@+id/iv_family_idcard"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_id"/>
+
+        <TextView
+            android:id="@+id/tv_family_idcard"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:text="身份证号"
+            android:textSize="15sp"
+            android:textColor="#676767"
+            android:gravity="center_vertical"/>
+
+        <EditText
+            android:id="@+id/et_family_idcard"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:hint="请输入家人的身份证号"
+            android:textColorHint="#747474"
+            android:textSize="14sp"
+            android:gravity="center_vertical|right"
+            android:paddingRight="10dp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:layout_marginTop="1dp">
+
+        <ImageView
+            android:id="@+id/iv_family_relation"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_famliy"/>
+
+        <TextView
+            android:id="@+id/tv_family_relation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/iv_family_relation"
+            android:layout_marginLeft="10dp"
+            android:text="家庭关系"
+            android:textSize="15sp"
+            android:textColor="#676767"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_family_select_relation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:text="请选择"
+            android:textSize="14sp"
+            android:textColor="#676767"
+            android:layout_toLeftOf="@+id/iv_family_point_relation"
+            android:gravity="center_vertical"/>
+
+        <ImageView
+            android:id="@+id/iv_family_point_relation"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/btn_next_n"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_comfirm"
+        android:layout_width="210dp"
+        android:layout_height="35dp"
+        android:background="@drawable/btn_next"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="确定"
+        android:textSize="16sp"
+        android:textColor="#ffffff"/>
+
+</LinearLayout>

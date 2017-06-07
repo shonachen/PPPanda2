@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".activity.LoginActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged">
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,7 +26,9 @@
             android:windowSoftInputMode="stateHidden|stateUnchanged">
         </activity>
 
-        <activity android:name=".activity.MainActivity"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"/>
 
         <activity android:name=".activity.ProtocolActivity"/>
 
@@ -49,6 +52,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.AddFamilyActivity"/>
 
     </application>
 

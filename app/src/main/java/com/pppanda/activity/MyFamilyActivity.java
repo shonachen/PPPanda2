@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pppanda.R;
 import com.pppanda.adapter.MyFamilyAdapter;
@@ -22,6 +24,7 @@ import com.pppanda.util.FSTextUtil;
 import com.pppanda.util.PicassoUtil;
 import com.pppanda.util.StatusBarUtils;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,15 +34,16 @@ import java.util.ArrayList;
 
 public class MyFamilyActivity extends Activity {
     ImageView ivBack,ivAddFamily;
-    ListView lvMyFamily;
-    MyFamilyAdapter mMyFamilyAdapter;
-    ArrayList<MyFamilyInfoEntity> myFamilyList;
-    ImageView ivMyFamilyHead;
-    TextView tvMyFamilyName,tvMyFamilyRelation;
+    ListView lvMyFamily,lvActivitAddFamily,lvPassiveAddFamily;
+    MyFamilyAdapter mMyFamilyAdapter,ActivityAddAdapter,PassiveAddAdapter;
+    ArrayList<MyFamilyInfoEntity> myFamilyList = new ArrayList<>();
+    ArrayList<MyFamilyInfoEntity> activityAddList = new ArrayList<>();
+    ArrayList<MyFamilyInfoEntity> passiveAddList = new ArrayList<>();
     //我的信息
     ImageView ivMyHead;
     TextView tvMyName,tvMyRelation;
-    MyFamilyInfoEntity mMyFamilyInfoEntity;
+    MyFamilyInfoEntity mMyInfoEntity;
+    RelativeLayout myLayout;
 
 
 
@@ -55,35 +59,58 @@ public class MyFamilyActivity extends Activity {
         initViews();
     }
 
+
     private void initViews(){
-//        //家人信息
         ivBack = (ImageView)findViewById(R.id.iv_mafamily_back);
         ivAddFamily = (ImageView)findViewById(R.id.iv_myfamily_add);
-        ivMyFamilyHead = (ImageView)findViewById(R.id.iv_myfamily_head);
-        tvMyFamilyName = (TextView)findViewById(R.id.tv_myself_nickname);
-        tvMyFamilyRelation = (TextView)findViewById(R.id.tv_myfamily_relation);
-        //我的信息
-        ivMyHead = (ImageView)findViewById(R.id.iv_my_head);
-        tvMyName = (TextView)findViewById(R.id.tv_my_nickname);
-        tvMyRelation = (TextView)findViewById(R.id.tv_my_relation);
-
-        lvMyFamily = (ListView)findViewById(R.id.lv_myfamily);
-        mMyFamilyAdapter = new MyFamilyAdapter(MyFamilyActivity.this, myFamilyList);
-        lvMyFamily.setAdapter(mMyFamilyAdapter);
-
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyFamilyActivity.this,MainActivity.class);
-                intent.putExtra("fragid",3);//判定返回MainActivity的Fragment
+                MyFamilyActivity.this.finish();
+            }
+        });
+
+        ivAddFamily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyFamilyActivity.this,AddFamilyActivity.class);
                 startActivity(intent);
             }
         });
 
-        String path = mMyFamilyInfoEntity.getfHead();
-        if(!FSTextUtil.isEmptyAndNull(path)){
-            PicassoUtil.with(MyFamilyActivity.this).load(path)
+        //关系已确认的家人列表
+        lvMyFamily = (ListView)findViewById(R.id.lv_myfamily);
+        mMyFamilyAdapter = new MyFamilyAdapter(MyFamilyActivity.this, myFamilyList,true);
+        lvMyFamily.setAdapter(mMyFamilyAdapter);
+
+        //等待家人确认的家人列表
+        lvActivitAddFamily = (ListView)findViewById(R.id.lv_active_addfamily);
+        ActivityAddAdapter = new MyFamilyAdapter(MyFamilyActivity.this, activityAddList,false);
+        lvActivitAddFamily.setAdapter(ActivityAddAdapter);
+
+        //等待自己确认的家人列表
+        lvPassiveAddFamily = (ListView)findViewById(R.id.lv_passive_addfamily);
+        PassiveAddAdapter = new MyFamilyAdapter(MyFamilyActivity.this, passiveAddList,false);
+        lvPassiveAddFamily.setAdapter(PassiveAddAdapter);
+
+        //我的信息
+        ivMyHead = (ImageView)findViewById(R.id.iv_my_head);
+        tvMyName = (TextView)findViewById(R.id.tv_my_nickname);
+        tvMyRelation = (TextView)findViewById(R.id.tv_my_relation);
+        myLayout = (RelativeLayout)findViewById(R.id.my_info);
+
+        myLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MyFamilyActivity.this,mMyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //我的数据
+        String path1 = mMyInfoEntity.getfHead();
+        if(!FSTextUtil.isEmptyAndNull(path1)){
+            PicassoUtil.with(MyFamilyActivity.this).load(path1)
                     .placeholder(R.mipmap.head)
                     .error(R.mipmap.head)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
@@ -94,32 +121,42 @@ public class MyFamilyActivity extends Activity {
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .transform(new PicassoCircleTransform()).into(ivMyHead);
         }
-        tvMyName.setText(mMyFamilyInfoEntity.getfNickName());
-        tvMyRelation.setText(mMyFamilyInfoEntity.getfRelation());
-
-
+        tvMyName.setText(mMyInfoEntity.getfNickName());
+        tvMyRelation.setText(mMyInfoEntity.getfRelation());
 
     }
 
     private void initDatas(){
-        for(int i=0;i<Cache.mUserRelationEntitys.size();i++){
+
+        //家人数据
+        for (int i=0;i<Cache.mUserRelationEntitys.size();i++){
             UserRelationEntity mUserRelationEntity = Cache.mUserRelationEntitys.valueAt(i);
-            int userID = Cache.mUserRelationEntitys.keyAt(i);
-            BaseInfoEntity mBaseInfoEntity = Cache.mBaseInfoEntitys.get(userID);
-            if (mBaseInfoEntity == null){
-                Log.e("TAG","mBaseInfoEntity == null");
+            int FamilyUserID = Cache.mUserRelationEntitys.keyAt(i);
+            BaseInfoEntity mFamily = Cache.mBaseInfoEntitys.get(FamilyUserID);
+            if(mFamily == null){
+                Log.e("TAG", "mFamily == null");
                 continue;
             }
 
-            String myHead = mBaseInfoEntity.getPhoto_url();
-            String nickName = mBaseInfoEntity.getLike_name();
-            String myRelation = Cache.mDictRelationEntity.get(mUserRelationEntity.getRelation_code()).toString();
-//            mMyFamilyInfoEntity = new MyFamilyInfoEntity(userID,myHead,nickName,myRelation);
+            String fMyHead = mFamily.getPhoto_url();
+            String fNickName = mFamily.getLike_name();
+            String fMyRelation = Cache.mDictRelationEntity.get(mUserRelationEntity.getRelation_code()).getRelation_desc();
+            boolean isActivity = (mUserRelationEntity.getUser_id() == Cache.userID);
+            MyFamilyInfoEntity mMyFamilyInfoEntity = new MyFamilyInfoEntity(FamilyUserID,fMyHead,fNickName,fMyRelation,isActivity);
+            Log.e("is_confirm","is_confirm=" + mUserRelationEntity.getIs_confirm());
 
-            mMyFamilyInfoEntity = new MyFamilyInfoEntity(userID,myHead,nickName,myRelation);
-
+            if(mUserRelationEntity.getIs_confirm() == 2){
+                myFamilyList.add(mMyFamilyInfoEntity);
+            }else{
+                if (mMyFamilyInfoEntity.isActivity()){
+                    activityAddList.add(mMyFamilyInfoEntity);
+                }else {
+                    passiveAddList.add(mMyFamilyInfoEntity);
+                }
+            }
 
         }
+
 
         //我的数据
         int userID = Cache.userID;
@@ -128,7 +165,7 @@ public class MyFamilyActivity extends Activity {
         String nickName = mBaseInfoEntity.getLike_name();
         String myRelation = "我";
 
-        mMyFamilyInfoEntity = new MyFamilyInfoEntity(userID,myHead,nickName,myRelation);
+        mMyInfoEntity = new MyFamilyInfoEntity(userID,myHead,nickName,myRelation,true);
 
 
     }

@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/layout_myfamily"
+        android:id="@+id/layout_myfamily_no"
         android:layout_width="match_parent"
         android:layout_height="68dp"
         android:background="#ffffff">
@@ -20,7 +20,7 @@
             android:src="@mipmap/head"/>
 
         <LinearLayout
-            android:id="@+id/my_name"
+            android:id="@+id/myfamily_name"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/iv_myfamily_head"
@@ -47,14 +47,16 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_myfamily_nfc"
-            android:layout_width="50dp"
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/btn_nfc_u"/>
+            android:text="等待对方确认"
+            android:textSize="13sp"
+            android:textColor="#A0A0A0"/>
 
     </RelativeLayout>
 

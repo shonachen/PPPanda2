@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
     private static final int MSG_GET_BASE_INFO_FAILED = 0X18;
 //    private static final int MSG_GET_HCC_DATA_RANK_SUCCEED = 0X19;
     private static final int MSG_GET_HCC_DATA_RANK_FAILED = 0X20;
-//    private static final int MSG_GET_USER_RELATION_SUCCEED = 0X21;
+    private static final int MSG_GET_USER_RELATION_SUCCEED = 0X21;
     private static final int MSG_GET_USER_RELATION_FAILED = 0X22;
 //    private static final int MSG_GET_DICT_RELATION_SUCCEED = 0X23;
     private static final int MSG_GET_DICT_RELATION_FAILED = 0X24;
@@ -104,8 +104,6 @@ public class LoginActivity extends Activity {
                     break;
                 case MSG_LOGIN_SUCCEED:
 //                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                    getBaseInfo();
-                    getHccDataRank();
                     getUserRelation();
                     getDictRelation();
                     break;
@@ -118,6 +116,10 @@ public class LoginActivity extends Activity {
                     break;
                 case MSG_GET_HCC_DATA_RANK_FAILED:
                     Toast.makeText(LoginActivity.this,"获取数据失败",Toast.LENGTH_SHORT).show();
+                    break;
+                case MSG_GET_USER_RELATION_SUCCEED:
+                    getBaseInfo();
+                    getHccDataRank();
                     break;
                 case MSG_GET_USER_RELATION_FAILED:
                     Toast.makeText(LoginActivity.this,"获取数据失败",Toast.LENGTH_SHORT).show();
@@ -359,6 +361,7 @@ public class LoginActivity extends Activity {
 
     }
 
+
     private void getBaseInfo(){
 
         Thread mBaseInfo = new Thread(){
@@ -367,6 +370,12 @@ public class LoginActivity extends Activity {
                 String access_token = Cache.accessToken;
                 ArrayList<Integer> user_ids = new ArrayList<>();
                 user_ids.add(Cache.userID);
+                for (int i=0;i<Cache.mUserRelationEntitys.size();i++){
+                    user_ids.add(Cache.mUserRelationEntitys.keyAt(i));
+                    Log.e("FamilyUserId","familyuser_id=" + user_ids);
+                }
+                Log.e("user_id","user_id=" + user_ids);
+
                 GetBaseInfoRequest mGetBaseInfoRequest = new GetBaseInfoRequest(access_token,user_ids);
                 String json = mGson.toJson(mGetBaseInfoRequest);
                 Log.e("getBaseInfo",json);
@@ -524,14 +533,21 @@ public class LoginActivity extends Activity {
                     GetUserRelationResponse mGetUserRelationResponse = mGson.fromJson(mResult,GetUserRelationResponse.class);
                     String body = mGetUserRelationResponse.getBody().toString();
                     ArrayList<UserRelationEntity> mUserRelation = mGetUserRelationResponse.getBody().getRis();
+                    Log.e("size","mUserRelation.size=" + mUserRelation.size());
                     if (mUserRelation == null){
                         getUserRelation = true;
                         judgeSucceed();
                     }else {
                         for(int i=0;i<mUserRelation.size();i++){
-                            Cache.mUserRelationEntitys.put(mUserRelation.get(i).getUser_id(),mUserRelation.get(i));
+                            if (mUserRelation.get(i).getRelation_user_id() == Cache.userID){
+                                Cache.mUserRelationEntitys.put(mUserRelation.get(i).getUser_id(), mUserRelation.get(i));
+                            }else {
+                                Cache.mUserRelationEntitys.put(mUserRelation.get(i).getRelation_user_id(), mUserRelation.get(i));
+                            }
+
                         }
                         getUserRelation = true;
+                        mHandler.sendEmptyMessage(MSG_GET_USER_RELATION_SUCCEED);
                         judgeSucceed();
 
                         Log.e("getUserRelation", "body = " + body);
@@ -612,6 +628,18 @@ public class LoginActivity extends Activity {
         };
         mDictRelation.start();
     }
+
+    /** 获取UsersIDs */
+    private ArrayList<Integer> getUserIDs(){
+        ArrayList<Integer> user_ids = new ArrayList<>();
+        user_ids.add(Cache.userID);
+        for(int i=0;i<Cache.mUserRelationEntitys.size();i++){
+            user_ids.add(Cache.mUserRelationEntitys.keyAt(i));
+        }
+
+        return user_ids;
+    }
+
 
 }
 

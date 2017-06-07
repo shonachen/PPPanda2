@@ -7,6 +7,8 @@ import com.pppanda.entity.DictRelationEntity;
 import com.pppanda.entity.HccDataRankEntity;
 import com.pppanda.entity.UserRelationEntity;
 
+import java.util.ArrayList;
+
 /**
  * Created by Administrator on 2017/5/9.
  */

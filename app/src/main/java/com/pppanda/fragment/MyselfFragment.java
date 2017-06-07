@@ -17,15 +17,12 @@ import android.widget.Toast;
 import com.pppanda.R;
 import com.pppanda.activity.AboutUsActivity;
 import com.pppanda.activity.IdentifyActivity;
-import com.pppanda.activity.MainActivity;
 import com.pppanda.activity.ModifyPasswordActivity;
 import com.pppanda.activity.MyFamilyActivity;
 import com.pppanda.activity.MyPhoneActivity;
+
+import com.pppanda.activity.PersonalInfoActivity;
 import com.pppanda.cache.Cache;
-import com.pppanda.transformation.PicassoCircleTransform;
-import com.pppanda.util.FSTextUtil;
-import com.pppanda.util.PicassoUtil;
-import com.squareup.picasso.MemoryPolicy;
 
 
 /**
@@ -105,6 +102,14 @@ public class MyselfFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //个人信息点击事件
+        myInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PersonalInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //身份认证点击事件
         myIdentify.setOnClickListener(new View.OnClickListener() {

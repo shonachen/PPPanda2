@@ -1,5 +1,6 @@
 package com.pppanda.activity;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,6 +27,10 @@ public class MainActivity extends FragmentActivity {
     private RadioGroup radioGroup;
     private RadioButton rbHome,rbHealthdata,rbIllmanagement,rbMyself;
     Context mContext;
+    HomeFragment mHomeFragment;
+    HealthDataFragment mHealthDataFragment;
+    IllManagementFragment mIllManagementFragment;
+    MyselfFragment mMyselfFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class MainActivity extends FragmentActivity {
         }
         super.onResume();
     }
+
 
     private void initView(){
         radioGroup = (RadioGroup)findViewById(R.id.radioGroup);

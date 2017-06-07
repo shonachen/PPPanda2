@@ -25,15 +25,17 @@ import java.util.ArrayList;
 public class MyFamilyAdapter extends BaseAdapter {
     Context mContext;
     ArrayList<MyFamilyInfoEntity> mList;
+    boolean isComplete;
 
 
-    public MyFamilyAdapter(Context mContext, ArrayList<MyFamilyInfoEntity> mList) {
+    public MyFamilyAdapter(Context mContext, ArrayList<MyFamilyInfoEntity> mList,boolean isComplete) {
         this.mContext = mContext;
         if (mList == null){
             this.mList = new ArrayList<>();
         }else {
             this.mList = mList;
         }
+        this.isComplete = isComplete;
     }
 
     @Override
@@ -53,45 +55,97 @@ public class MyFamilyAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder mViewHolder = null;
-        if (convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_myfamily,parent,false);
+        if (isComplete){
+            ViewHolderComplete mViewHolderComplete = null;
+            if (convertView == null){
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_myfamily,parent,false);
 
-            mViewHolder = new ViewHolder();
-            mViewHolder.fHead = (ImageView)convertView.findViewById(R.id.iv_myfamily_head);
-            mViewHolder.fNickName = (TextView)convertView.findViewById(R.id.tv_myfamily_nickname);
-            mViewHolder.fRelation = (TextView)convertView.findViewById(R.id.tv_myfamily_relation);
-            mViewHolder.myFamily = (RelativeLayout)convertView.findViewById(R.id.layout_myfamily);
+                mViewHolderComplete = new ViewHolderComplete();
+                mViewHolderComplete.fHead = (ImageView)convertView.findViewById(R.id.iv_myfamily_head);
+                mViewHolderComplete.fNickName = (TextView)convertView.findViewById(R.id.tv_myfamily_nickname);
+                mViewHolderComplete.fRelation = (TextView)convertView.findViewById(R.id.tv_myfamily_relation);
+                mViewHolderComplete.myFamily = (RelativeLayout)convertView.findViewById(R.id.layout_myfamily);
 
-            convertView.setTag(mViewHolder);
-        }else {
-            mViewHolder = (ViewHolder)convertView.getTag();
-        }
-        final MyFamilyInfoEntity mMyFamilyInfoEntity = mList.get(position);
-        if (FSTextUtil.isEmptyAndNull(mMyFamilyInfoEntity.getfHead())){
-            PicassoUtil.with(mContext).load(R.mipmap.head).into(mViewHolder.fHead);
-        }else {
-            PicassoUtil.with(mContext).load(mMyFamilyInfoEntity.getfHead()).into(mViewHolder.fHead);
-        }
-//        mViewHolder.fHead.setImageResource(mMyFamilyInfoEntity.getfHead());
-        mViewHolder.fNickName.setText(mMyFamilyInfoEntity.getfNickName());
-        mViewHolder.fRelation.setText(mMyFamilyInfoEntity.getfRelation());
-
-        mViewHolder.myFamily.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext,mMyFamilyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+                convertView.setTag(mViewHolderComplete);
+            }else {
+                mViewHolderComplete = (ViewHolderComplete)convertView.getTag();
             }
-        });
+            final MyFamilyInfoEntity mMyFamilyInfoEntity = mList.get(position);
+            if (FSTextUtil.isEmptyAndNull(mMyFamilyInfoEntity.getfHead())){
+                PicassoUtil.with(mContext).load(R.mipmap.head).into(mViewHolderComplete.fHead);
+            }else {
+                PicassoUtil.with(mContext).load(mMyFamilyInfoEntity.getfHead()).into(mViewHolderComplete.fHead);
+            }
+//        mViewHolder.fHead.setImageResource(mMyFamilyInfoEntity.getfHead());
+            mViewHolderComplete.fNickName.setText(mMyFamilyInfoEntity.getfNickName());
+            mViewHolderComplete.fRelation.setText(mMyFamilyInfoEntity.getfRelation());
 
+            mViewHolderComplete.myFamily.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,mMyFamilyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            ViewHolderNoComplete mViewHolderNoComplete = null;
+            if (convertView == null){
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_myfamily_no,parent,false);
+
+                mViewHolderNoComplete = new ViewHolderNoComplete();
+                mViewHolderNoComplete.fHead1 = (ImageView)convertView.findViewById(R.id.iv_myfamily_head);
+                mViewHolderNoComplete.fNickName1 = (TextView)convertView.findViewById(R.id.tv_myfamily_nickname);
+                mViewHolderNoComplete.fRelation1 = (TextView)convertView.findViewById(R.id.tv_myfamily_relation);
+                mViewHolderNoComplete.tvConfirm1 = (TextView)convertView.findViewById(R.id.tv_confirm);
+                mViewHolderNoComplete.myFamily1 = (RelativeLayout)convertView.findViewById(R.id.layout_myfamily_no);
+
+                convertView.setTag(mViewHolderNoComplete);
+            }else {
+                mViewHolderNoComplete = (ViewHolderNoComplete)convertView.getTag();
+            }
+
+            final MyFamilyInfoEntity mMyFamilyInfoEntity = mList.get(position);
+            if (FSTextUtil.isEmptyAndNull(mMyFamilyInfoEntity.getfHead())){
+                PicassoUtil.with(mContext).load(R.mipmap.head).into(mViewHolderNoComplete.fHead1);
+            }else {
+                PicassoUtil.with(mContext).load(mMyFamilyInfoEntity.getfHead()).into(mViewHolderNoComplete.fHead1);
+            }
+            mViewHolderNoComplete.fNickName1.setText(mMyFamilyInfoEntity.getfNickName());
+            if (mMyFamilyInfoEntity.isActivity()){
+                mViewHolderNoComplete.fRelation1.setText(mMyFamilyInfoEntity.getfRelation());
+                mViewHolderNoComplete.tvConfirm1.setText("等待对方确认");
+            }else {
+                mViewHolderNoComplete.fRelation1.setText("对方请求添加您为：" + mMyFamilyInfoEntity.getfRelation());
+                mViewHolderNoComplete.tvConfirm1.setText("家人绑定申请");
+            }
+
+            mViewHolderNoComplete.myFamily1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,mMyFamilyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
 
         return convertView;
     }
 
-    class ViewHolder{
+    class ViewHolderComplete{
         ImageView fHead;
         TextView fNickName;
         TextView fRelation;
         RelativeLayout myFamily;
+    }
+
+    class ViewHolderNoComplete{
+        ImageView fHead1;
+        TextView fNickName1;
+        TextView fRelation1;
+        TextView tvConfirm1;
+        RelativeLayout myFamily1;
+    }
+
+    public void setList(ArrayList<MyFamilyInfoEntity> mList){
+        this.mList = mList;
     }
 }

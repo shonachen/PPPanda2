@@ -39,64 +39,204 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/my_info"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:background="#ffffff">
-
-        <com.pppanda.util.XCRoundImageView
-            android:id="@+id/iv_my_head"
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/head"/>
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:background="@color/fragment_background_color">
 
         <LinearLayout
-            android:id="@+id/my_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/iv_my_head"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:background="@color/fragment_background_color"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_my_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="昵称"
-                android:textColor="@color/myself_text_color"
-                android:textSize="@dimen/myself_text_size"/>
 
-            <TextView
-                android:id="@+id/tv_my_relation"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/my_info"
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:background="#ffffff">
+
+                <com.pppanda.util.XCRoundImageView
+                    android:id="@+id/iv_my_head"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/head"/>
+
+                <LinearLayout
+                    android:id="@+id/my_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/iv_my_head"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_my_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="昵称"
+                        android:textColor="@color/myself_text_color"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_my_relation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="关系"
+                        android:textColor="#A0A0A0"
+                        android:textSize="13sp"
+                        android:layout_marginTop="5dp"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_my_nfc"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/btn_nfc_u"/>
+
+            </RelativeLayout>
+
+            <com.pppanda.ListViewForScrollView
+                android:id="@+id/lv_myfamily"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="关系"
-                android:textColor="#A0A0A0"
-                android:textSize="11sp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="1dp"
+                android:divider="@color/fragment_background_color"
+                android:dividerHeight="1dp"
+                android:scrollbars="none"/>
+
+            <com.pppanda.ListViewForScrollView
+                android:id="@+id/lv_active_addfamily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:divider="@color/fragment_background_color"
+                android:dividerHeight="1dp"
+                android:scrollbars="none"/>
+
+            <com.pppanda.ListViewForScrollView
+                android:id="@+id/lv_passive_addfamily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:divider="@color/fragment_background_color"
+                android:dividerHeight="1dp"
+                android:scrollbars="none"/>
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_my_nfc"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/btn_nfc_u"/>
+    </ScrollView>
 
-    </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:background="@color/title">-->
 
-    <ListView
-        android:id="@+id/lv_myfamily"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="1dp"
-        android:scrollbars="none"/>
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_mafamily_back"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:src="@mipmap/btn_back_n"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="12dp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_myfamily_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="我的家人"-->
+            <!--android:textSize="@dimen/title_text_size"-->
+            <!--android:textColor="#ffffff"/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_myfamily_add"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="12dp"-->
+            <!--android:src="@mipmap/people3"-->
+            <!--android:layout_centerVertical="true"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/my_info"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="68dp"-->
+        <!--android:background="#ffffff">-->
+
+        <!--<com.pppanda.util.XCRoundImageView-->
+            <!--android:id="@+id/iv_my_head"-->
+            <!--android:layout_width="43dp"-->
+            <!--android:layout_height="43dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:src="@mipmap/head"/>-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/my_name"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_toRightOf="@+id/iv_my_head"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:orientation="vertical"-->
+            <!--android:gravity="center_vertical">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_my_nickname"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="昵称"-->
+                <!--android:textColor="@color/myself_text_color"-->
+                <!--android:textSize="@dimen/myself_text_size"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_my_relation"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="关系"-->
+                <!--android:textColor="#A0A0A0"-->
+                <!--android:textSize="11sp"-->
+                <!--android:layout_marginTop="5dp"/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_my_nfc"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:src="@mipmap/btn_nfc_u"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<ListView-->
+        <!--android:id="@+id/lv_myfamily"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="1dp"-->
+        <!--android:divider="@color/fragment_background_color"-->
+        <!--android:dividerHeight="1dp"-->
+        <!--android:scrollbars="none"/>-->
+
+    <!--<ListView-->
+        <!--android:id="@+id/lv_active_addfamily"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"/>-->
+
 
 </LinearLayout>
