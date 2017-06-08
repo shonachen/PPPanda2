@@ -140,6 +140,7 @@ public class LoginActivity extends Activity {
     public void judgeSucceed(){
         if (getBaseInfo && getHccDataRank && getUserRelation && getDictRelation){
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            LoginActivity.this.finish();
         }
     }
 
@@ -533,9 +534,9 @@ public class LoginActivity extends Activity {
                     GetUserRelationResponse mGetUserRelationResponse = mGson.fromJson(mResult,GetUserRelationResponse.class);
                     String body = mGetUserRelationResponse.getBody().toString();
                     ArrayList<UserRelationEntity> mUserRelation = mGetUserRelationResponse.getBody().getRis();
-                    Log.e("size","mUserRelation.size=" + mUserRelation.size());
                     if (mUserRelation == null){
                         getUserRelation = true;
+                        mHandler.sendEmptyMessage(MSG_GET_USER_RELATION_SUCCEED);
                         judgeSucceed();
                     }else {
                         for(int i=0;i<mUserRelation.size();i++){

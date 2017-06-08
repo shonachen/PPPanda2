@@ -32,11 +32,17 @@
 
         <activity android:name=".activity.ProtocolActivity"/>
 
+        <activity android:name=".activity.MyselfInfoActivity"/>
+
         <activity android:name=".activity.IdentifyActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged">
         </activity>
 
         <activity android:name=".activity.MyFamilyActivity"/>
+
+        <activity android:name=".activity.AddFamilyActivity"/>
+
+        <activity android:name=".activity.PersonalInfoActivity"/>
 
         <activity android:name=".activity.MyPhoneActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged">
@@ -53,7 +59,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.AddFamilyActivity"/>
 
     </application>
 

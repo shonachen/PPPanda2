@@ -1,7 +1,10 @@
 package com.pppanda.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +36,8 @@ import java.util.ArrayList;
  */
 
 public class MyFamilyActivity extends Activity {
+    private static final String ACTION_DELETE_FAMILY = "ACTION_DELETE_FAMILY";
+
     ImageView ivBack,ivAddFamily;
     ListView lvMyFamily,lvActivitAddFamily,lvPassiveAddFamily;
     MyFamilyAdapter mMyFamilyAdapter,ActivityAddAdapter,PassiveAddAdapter;
@@ -45,6 +50,7 @@ public class MyFamilyActivity extends Activity {
     MyFamilyInfoEntity mMyInfoEntity;
     RelativeLayout myLayout;
 
+    MyFamilyReceiver myFamilyReceiver;
 
 
     @Override
@@ -57,8 +63,21 @@ public class MyFamilyActivity extends Activity {
         initDatas();
 
         initViews();
+
+        myFamilyReceiver = new MyFamilyReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_DELETE_FAMILY);
+        registerReceiver(myFamilyReceiver, intentFilter);
     }
 
+
+    protected void onDestroy(){
+        super.onDestroy();
+
+        if(myFamilyReceiver != null){
+            unregisterReceiver(myFamilyReceiver);
+        }
+    }
 
     private void initViews(){
         ivBack = (ImageView)findViewById(R.id.iv_mafamily_back);
@@ -100,13 +119,6 @@ public class MyFamilyActivity extends Activity {
         tvMyRelation = (TextView)findViewById(R.id.tv_my_relation);
         myLayout = (RelativeLayout)findViewById(R.id.my_info);
 
-        myLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MyFamilyActivity.this,mMyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
-            }
-        });
-
         //我的数据
         String path1 = mMyInfoEntity.getfHead();
         if(!FSTextUtil.isEmptyAndNull(path1)){
@@ -123,6 +135,17 @@ public class MyFamilyActivity extends Activity {
         }
         tvMyName.setText(mMyInfoEntity.getfNickName());
         tvMyRelation.setText(mMyInfoEntity.getfRelation());
+
+        myLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(MyFamilyActivity.this,mMyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MyFamilyActivity.this, PersonalInfoActivity.class);
+                intent.putExtra("isComplete", true);
+                intent.putExtra("ENTITY", mMyInfoEntity);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -168,6 +191,38 @@ public class MyFamilyActivity extends Activity {
         mMyInfoEntity = new MyFamilyInfoEntity(userID,myHead,nickName,myRelation,true);
 
 
+    }
+
+
+    class MyFamilyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            switch (action){
+                case ACTION_DELETE_FAMILY:
+                    boolean isComplete = intent.getBooleanExtra("isComplete",true);
+//                    boolean isActivity = intent.getBooleanExtra("isActivity",false);
+                    int userID = intent.getExtras().getInt("userID");
+                    int position = intent.getExtras().getInt("POSITION");
+                    if (isComplete){               //删除已确认关系的家人
+                        myFamilyList.remove(position);
+                        mMyFamilyAdapter.setList(myFamilyList);
+                        mMyFamilyAdapter.notifyDataSetChanged();
+                    }else {               //删除未确认关系的家人
+//                        for(int i=0;i<activityAddList.size();i++){
+//                            if(activityAddList.get(i).getUserID() == userID){
+//                                activityAddList.remove(i);
+//                            }
+//                        }
+                        activityAddList.remove(position);
+                        ActivityAddAdapter.setList(activityAddList);
+                        ActivityAddAdapter.notifyDataSetChanged();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
 }

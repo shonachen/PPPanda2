@@ -21,6 +21,7 @@ import com.pppanda.activity.ModifyPasswordActivity;
 import com.pppanda.activity.MyFamilyActivity;
 import com.pppanda.activity.MyPhoneActivity;
 
+import com.pppanda.activity.MyselfInfoActivity;
 import com.pppanda.activity.PersonalInfoActivity;
 import com.pppanda.cache.Cache;
 
@@ -106,7 +107,7 @@ public class MyselfFragment extends Fragment {
         myInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, PersonalInfoActivity.class);
+                Intent intent = new Intent(mContext, MyselfInfoActivity.class);
                 startActivity(intent);
             }
         });

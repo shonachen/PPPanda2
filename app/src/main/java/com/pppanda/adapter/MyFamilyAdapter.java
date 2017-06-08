@@ -1,6 +1,7 @@
 package com.pppanda.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pppanda.R;
+import com.pppanda.activity.PersonalInfoActivity;
 import com.pppanda.entity.MyFamilyInfoEntity;
 import com.pppanda.util.FSTextUtil;
 import com.pppanda.util.PicassoUtil;
@@ -54,7 +56,7 @@ public class MyFamilyAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (isComplete){
             ViewHolderComplete mViewHolderComplete = null;
             if (convertView == null){
@@ -83,7 +85,13 @@ public class MyFamilyAdapter extends BaseAdapter {
             mViewHolderComplete.myFamily.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,mMyFamilyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext,mMyFamilyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, PersonalInfoActivity.class);
+                    intent.putExtra("isComplete", true);
+                    intent.putExtra("ENTITY", mMyFamilyInfoEntity);
+                    intent.putExtra("POSITION", position);
+
+                    mContext.startActivity(intent);
                 }
             });
         }else {
@@ -121,7 +129,20 @@ public class MyFamilyAdapter extends BaseAdapter {
             mViewHolderNoComplete.myFamily1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,mMyFamilyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext,mMyFamilyInfoEntity.getfNickName(),Toast.LENGTH_SHORT).show();
+                    if (mMyFamilyInfoEntity.isActivity()){
+                        Intent intent = new Intent(mContext,PersonalInfoActivity.class);
+                        intent.putExtra("isComplete", false);
+                        intent.putExtra("ENTITY", mMyFamilyInfoEntity);
+                        intent.putExtra("POSITION", position);
+                        mContext.startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(mContext,PersonalInfoActivity.class);
+                        intent.putExtra("isComplete", false);
+                        intent.putExtra("ENTITY", mMyFamilyInfoEntity);
+                        intent.putExtra("POSITION", position);
+                        mContext.startActivity(intent);
+                    }
                 }
             });
 
