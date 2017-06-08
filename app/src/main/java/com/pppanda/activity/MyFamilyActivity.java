@@ -204,17 +204,22 @@ public class MyFamilyActivity extends Activity {
 //                    boolean isActivity = intent.getBooleanExtra("isActivity",false);
                     int userID = intent.getExtras().getInt("userID");
                     int position = intent.getExtras().getInt("POSITION");
-                    if (isComplete){               //删除已确认关系的家人
-                        myFamilyList.remove(position);
+                    if (isComplete){
+                        for(int i=0;i<myFamilyList.size();i++){
+                            if(myFamilyList.get(i).getUserID() == userID){
+                                myFamilyList.remove(i);
+                            }
+                        }//删除已确认关系的家人
+//                        myFamilyList.remove(position);
                         mMyFamilyAdapter.setList(myFamilyList);
                         mMyFamilyAdapter.notifyDataSetChanged();
                     }else {               //删除未确认关系的家人
-//                        for(int i=0;i<activityAddList.size();i++){
-//                            if(activityAddList.get(i).getUserID() == userID){
-//                                activityAddList.remove(i);
-//                            }
-//                        }
-                        activityAddList.remove(position);
+                        for(int i=0;i<activityAddList.size();i++){
+                            if(activityAddList.get(i).getUserID() == userID){
+                                activityAddList.remove(i);
+                            }
+                        }
+//                        activityAddList.remove(position);
                         ActivityAddAdapter.setList(activityAddList);
                         ActivityAddAdapter.notifyDataSetChanged();
                     }
