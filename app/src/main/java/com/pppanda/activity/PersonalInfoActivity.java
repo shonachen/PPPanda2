@@ -18,8 +18,10 @@ import com.google.gson.Gson;
 import com.pppanda.R;
 import com.pppanda.cache.Cache;
 import com.pppanda.entity.MyFamilyInfoEntity;
+import com.pppanda.request.ConfirmRelationRequest;
 import com.pppanda.request.DeleteFamilyRequest;
 import com.pppanda.response.BaseResponse;
+import com.pppanda.response.ConfirmRelationResponse;
 import com.pppanda.response.DeleteFamilyResponse;
 import com.pppanda.transformation.PicassoCircleTransform;
 import com.pppanda.util.FSTextUtil;
@@ -42,11 +44,10 @@ import okhttp3.Response;
 public class PersonalInfoActivity extends Activity {
     private static final int MSG_DELETE_FAMILY_SUCCEED = 0X25;
     private static final int MSG_DELETE_FAMILY_FAILED = 0X26;
-    private static final int MSG_AGREE_SUCCEED = 0X27;
-    private static final int MSG_AGREE_FAILED = 0X28;
-    private static final int MSG_DISAGREE_SUCCEED = 0X29;
-    private static final int MSG_DISAGREE_FAILED = 0X30;
+    private static final int MSG_CONFIRM_RELATION_SUCCEED = 0X27;
+    private static final int MSG_CONFIRM_RELATION_FAILED = 0X28;
     private static final String ACTION_DELETE_FAMILY = "ACTION_DELETE_FAMILY";
+    private static final String ACTION_CONFIRM = "ACTION_CONFIRM";
 
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     Gson mGson = new Gson();
@@ -58,42 +59,10 @@ public class PersonalInfoActivity extends Activity {
     Button btnCheckData,btnAgree,btnDelete,btnDisagree;
     MyFamilyInfoEntity mMyFamilyInfoEntity;
     int position;
-    boolean isCompelte = true;
-
-    Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case MSG_DELETE_FAMILY_SUCCEED:
-                    Toast.makeText(PersonalInfoActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
-                    //删除缓存
-                    Cache.clearDatasByUserID(mMyFamilyInfoEntity.getUserID());
-                    Intent dInrent = new Intent(ACTION_DELETE_FAMILY);
-                    dInrent.putExtra("isCompelte", isCompelte);
-//                    dInrent.putExtra("isActivity",mMyFamilyInfoEntity.isActivity());
-                    dInrent.putExtra("userID", mMyFamilyInfoEntity.getUserID());
-                    dInrent.putExtra("POSITION", position);
-                    sendBroadcast(dInrent);
+    boolean isComplete;
+    LoginActivity loginActivity;
 
 
-                    PersonalInfoActivity.this.finish();
-                    break;
-                case MSG_DELETE_FAMILY_FAILED:
-                    Toast.makeText(PersonalInfoActivity.this,"操作失败",Toast.LENGTH_SHORT).show();
-                    break;
-                case MSG_AGREE_SUCCEED:
-                    break;
-                case MSG_AGREE_FAILED:
-                    break;
-                case MSG_DISAGREE_SUCCEED:
-                    break;
-                case MSG_DISAGREE_FAILED:
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +75,62 @@ public class PersonalInfoActivity extends Activity {
         initViews();
     }
 
+    Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case MSG_DELETE_FAMILY_SUCCEED:
+                    Toast.makeText(PersonalInfoActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
+                    //删除缓存
+                    Cache.clearDatasByUserID(mMyFamilyInfoEntity.getUserID());
+                    Intent dIntent = new Intent(ACTION_DELETE_FAMILY);
+                    dIntent.putExtra("isComplete", isComplete);
+                    dIntent.putExtra("userID", mMyFamilyInfoEntity.getUserID());
+                    dIntent.putExtra("isActivity", mMyFamilyInfoEntity.isActivity());
+                    sendBroadcast(dIntent);
+
+                    PersonalInfoActivity.this.finish();
+                    break;
+                case MSG_DELETE_FAMILY_FAILED:
+                    Toast.makeText(PersonalInfoActivity.this,"操作失败",Toast.LENGTH_SHORT).show();
+                    break;
+                case MSG_CONFIRM_RELATION_SUCCEED:
+                    int action = msg.arg1;
+                    if (action == 2){        //同意家人申请
+                        Toast.makeText(PersonalInfoActivity.this,"操作成功",Toast.LENGTH_SHORT).show();
+                        Intent agreeIntent = new Intent(ACTION_CONFIRM);
+                        agreeIntent.putExtra("ACTION",2);
+                        agreeIntent.putExtra("userID1", mMyFamilyInfoEntity.getUserID());
+                        agreeIntent.putExtra("MyFamilyInfoEntity",mMyFamilyInfoEntity);
+//                        loginActivity.getUserRelation();
+//                        loginActivity.getHccDataRank();
+                        sendBroadcast(agreeIntent);
+
+                        PersonalInfoActivity.this.finish();
+
+                    }else {                  //拒绝家人申请
+                        Toast.makeText(PersonalInfoActivity.this,"操作成功",Toast.LENGTH_SHORT).show();
+                        Cache.clearDatasByUserID(mMyFamilyInfoEntity.getUserID());
+                        Intent disagreeIntent = new Intent(ACTION_CONFIRM);
+                        disagreeIntent.putExtra("ACTION",3);
+                        disagreeIntent.putExtra("userID1", mMyFamilyInfoEntity.getUserID());
+                        sendBroadcast(disagreeIntent);
+
+                        PersonalInfoActivity.this.finish();
+                    }
+                    break;
+                case MSG_CONFIRM_RELATION_FAILED:
+                    Toast.makeText(PersonalInfoActivity.this,"操作失败",Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     private void initDatas(){
         Intent intent = getIntent();
-        isCompelte = intent.getBooleanExtra("isComplete", false);
+        isComplete = intent.getExtras().getBoolean("isComplete");
         mMyFamilyInfoEntity = (MyFamilyInfoEntity)intent.getSerializableExtra("ENTITY");
         position = intent.getExtras().getInt("POSITION");
         Log.e("TAG", mMyFamilyInfoEntity.toString());
@@ -128,7 +150,7 @@ public class PersonalInfoActivity extends Activity {
         btnAgree = (Button)findViewById(R.id.btn_agree);
         btnDisagree = (Button)findViewById(R.id.btn_disagree);
 
-        if (isCompelte){
+        if (isComplete){
             tvRelation.setText(mMyFamilyInfoEntity.getfRelation());
             if (mMyFamilyInfoEntity.getUserID() == Cache.userID){
                 btnDelete.setVisibility(View.GONE);
@@ -188,8 +210,12 @@ public class PersonalInfoActivity extends Activity {
                     DeleteFamily();
                     break;
                 case R.id.btn_agree:
+                    int action = 2;
+                    ConfirmRelation(action);
                     break;
                 case R.id.btn_disagree:
+                    int action1 = 3;
+                    ConfirmRelation(action1);
                     break;
                 default:
                     break;
@@ -235,9 +261,9 @@ public class PersonalInfoActivity extends Activity {
                 if (code == 0){
                     DeleteFamilyResponse mDeleteFamilyResponse = mGson.fromJson(mResult,DeleteFamilyResponse.class);
                     String body = mDeleteFamilyResponse.getBody().toString();
-                    Log.e("login", "code = " + code);
-                    Log.e("login", "code_msg = " + codeMsg);
-                    Log.e("login", "body = " + body);
+                    Log.e("DeleteFamily", "code = " + code);
+                    Log.e("DeleteFamily", "code_msg = " + codeMsg);
+                    Log.e("DeleteFamily", "body = " + body);
 
                     Message msg = new Message();
                     msg.what = MSG_DELETE_FAMILY_SUCCEED;
@@ -250,6 +276,60 @@ public class PersonalInfoActivity extends Activity {
             }
         };
         mDelete.start();
+    }
+
+    private void ConfirmRelation(final int action){
+        Thread mConfirm = new Thread(){
+            @Override
+            public void run() {
+                String access_token = Cache.accessToken;
+                int relation_user_id = mMyFamilyInfoEntity.getUserID();
+                ConfirmRelationRequest mConfirmRelationRequest = new ConfirmRelationRequest(access_token,relation_user_id,action);
+                String json = mGson.toJson(mConfirmRelationRequest);
+                Log.e("ConfirmRelation", json);
+
+                String url = "http://api.pp-panda.cc:8080/v1/user/userrelationconfirm";
+                OkHttpClient mOkHttpClient = new OkHttpClient();
+                Request mRequest = new Request.Builder()
+                        .url(url)
+                        .post(RequestBody.create(JSON,json))
+                        .build();
+                Response mResponse = null;
+                try {
+                    mResponse = mOkHttpClient.newCall(mRequest).execute();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+                String mResult = null;
+                try {
+                    mResult = mResponse.body().string();
+                    Log.e("ConfirmRelation", "mResponse.body().string() = \n" + mResult);
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+
+                BaseResponse mBaseResponse = mGson.fromJson(mResult, BaseResponse.class);
+                int code = mBaseResponse.getCode();
+                String codeMsg = mBaseResponse.getCode_msg();
+                if (code == 0){
+                    ConfirmRelationResponse mConfirmRelationResponse = mGson.fromJson(mResult, ConfirmRelationResponse.class);
+                    String body = mConfirmRelationResponse.getBody().toString();
+                    Log.e("ConfirmRelation", "code = " + code);
+                    Log.e("ConfirmRelation", "code_msg = " + codeMsg);
+                    Log.e("ConfirmRelation", "body = " + body);
+                    Message msg = new Message();
+                    msg.what = MSG_CONFIRM_RELATION_SUCCEED;
+                    msg.arg1 = action;
+                    mHandler.sendMessage(msg);
+                }else{
+                    Message msg = new Message();
+                    msg.what = MSG_CONFIRM_RELATION_FAILED;
+                    mHandler.sendMessage(msg);
+                }
+            }
+        };
+        mConfirm.start();
     }
 }
 

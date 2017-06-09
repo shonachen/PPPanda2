@@ -37,6 +37,7 @@ import java.util.ArrayList;
 
 public class MyFamilyActivity extends Activity {
     private static final String ACTION_DELETE_FAMILY = "ACTION_DELETE_FAMILY";
+    private static final String ACTION_CONFIRM = "ACTION_CONFIRM";
 
     ImageView ivBack,ivAddFamily;
     ListView lvMyFamily,lvActivitAddFamily,lvPassiveAddFamily;
@@ -67,6 +68,7 @@ public class MyFamilyActivity extends Activity {
         myFamilyReceiver = new MyFamilyReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_DELETE_FAMILY);
+        intentFilter.addAction(ACTION_CONFIRM);
         registerReceiver(myFamilyReceiver, intentFilter);
     }
 
@@ -150,6 +152,9 @@ public class MyFamilyActivity extends Activity {
     }
 
     private void initDatas(){
+        myFamilyList.clear();
+        activityAddList.clear();
+        passiveAddList.clear();
 
         //家人数据
         for (int i=0;i<Cache.mUserRelationEntitys.size();i++){
@@ -195,37 +200,72 @@ public class MyFamilyActivity extends Activity {
 
 
     class MyFamilyReceiver extends BroadcastReceiver {
+
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             switch (action){
                 case ACTION_DELETE_FAMILY:
-                    boolean isComplete = intent.getBooleanExtra("isComplete",true);
-//                    boolean isActivity = intent.getBooleanExtra("isActivity",false);
+//                    boolean isComplete = intent.getBooleanExtra("isComplete",true);
+//                    boolean isActivity = intent.getBooleanExtra("isActivity", true);
+                    boolean isComplete = intent.getExtras().getBoolean("isComplete");
+                    boolean isActivity = intent.getExtras().getBoolean("isActivity");
                     int userID = intent.getExtras().getInt("userID");
-                    int position = intent.getExtras().getInt("POSITION");
-                    if (isComplete){
+                    if (isComplete){            //删除已确认关系的家人
                         for(int i=0;i<myFamilyList.size();i++){
                             if(myFamilyList.get(i).getUserID() == userID){
                                 myFamilyList.remove(i);
                             }
-                        }//删除已确认关系的家人
-//                        myFamilyList.remove(position);
+                        }
                         mMyFamilyAdapter.setList(myFamilyList);
                         mMyFamilyAdapter.notifyDataSetChanged();
-                    }else {               //删除未确认关系的家人
-                        for(int i=0;i<activityAddList.size();i++){
-                            if(activityAddList.get(i).getUserID() == userID){
-                                activityAddList.remove(i);
+
+                    }else {                    //删除未确认关系的家人
+                        if (isActivity){
+                            for(int i=0;i<activityAddList.size();i++){
+                                if(activityAddList.get(i).getUserID() == userID){
+                                    activityAddList.remove(i);
+                                }
+                            }
+                            ActivityAddAdapter.setList(activityAddList);
+                            ActivityAddAdapter.notifyDataSetChanged();
+                        }
+                    }
+                    break;
+                case ACTION_CONFIRM:
+                    int disagreeUserID = intent.getExtras().getInt("userID1");
+                    int confirmAction = intent.getExtras().getInt("ACTION");
+                    MyFamilyInfoEntity mMyFamilyInfoEntity = (MyFamilyInfoEntity)intent.getExtras().getSerializable("MyFamilyInfoEntity");
+                    if (confirmAction == 2){            //同意家人申请
+                        for(int i=0;i<passiveAddList.size();i++){
+                            if(passiveAddList.get(i).getUserID() == disagreeUserID){
+                                Log.e("userID1", passiveAddList.get(i).getUserID()+"");
+                                passiveAddList.remove(i);                  //passiveAddList中移除该家人
                             }
                         }
-//                        activityAddList.remove(position);
-                        ActivityAddAdapter.setList(activityAddList);
-                        ActivityAddAdapter.notifyDataSetChanged();
+                        PassiveAddAdapter.setList(passiveAddList);
+                        PassiveAddAdapter.notifyDataSetChanged();
+
+                        myFamilyList.add(mMyFamilyInfoEntity);             //myFamilyList中添加该家人
+                        mMyFamilyAdapter.setList(myFamilyList);
+                        mMyFamilyAdapter.notifyDataSetChanged();
+
+//
+
+                    }else {                                //拒绝家人申请
+                        for(int i=0;i<passiveAddList.size();i++){
+                            if(passiveAddList.get(i).getUserID() == disagreeUserID){
+                                Log.e("userID1", passiveAddList.get(i).getUserID()+"");
+                                passiveAddList.remove(i);
+                            }
+                        }
+                        PassiveAddAdapter.setList(passiveAddList);
+                        PassiveAddAdapter.notifyDataSetChanged();
                     }
                     break;
                 default:
                     break;
+
             }
         }
     }
