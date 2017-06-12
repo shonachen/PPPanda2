@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:typeface">normal</item>
     </style>
+
+    <style name="MyDialog"
+        parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

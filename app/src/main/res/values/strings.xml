@@ -26,5 +26,9 @@
         Ver 1.1.0\n成都早寻智能科技股份有限公司\nCopyright© Foresight All right reserved
     </string>
 
+    <string name="user_should_know">
+        1、请确认您在经过对方同意的情况下使用其身份证信息\n\n\n2、如果在未经过对方允许的情况使用其身份信息，您需对自己的行为承担相应的法律责任\n\n\n3、若PP熊猫运营公司承担了因您的行为导致的行政处罚或侵权损害赔偿责任等，PP熊猫运营公司有权向您追讨等额的赔偿\n\n\n4、您在点击“确定”按钮后视为已阅读并同意以上条款
+    </string>
+
 
 </resources>

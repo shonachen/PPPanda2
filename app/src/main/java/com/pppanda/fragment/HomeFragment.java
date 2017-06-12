@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pppanda.R;
+import com.pppanda.activity.AddFamilyActivity;
 import com.pppanda.adapter.HomeListInfoAdapter;
 import com.pppanda.cache.Cache;
 import com.pppanda.entity.HomeListInfoEntity;
@@ -38,7 +40,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
     Context mContext;
     View view;
-    ImageView homeAddFamily;
+    ImageView homeAddFamily,ivHomeData;
     RelativeLayout homeData;
     TextView homeScore;
     int card_status;
@@ -61,6 +63,7 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, null);
         homeAddFamily = (ImageView)view.findViewById(R.id.iv_home_addfamily);
         homeScore = (TextView)view.findViewById(R.id.tv_home_score);
+        ivHomeData = (ImageView)view.findViewById(R.id.iv_home_data);
         card_status = Cache.mBaseInfoEntitys.get(Cache.userID).getCard_status();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//设置时间显示格式
 
@@ -83,6 +86,25 @@ public class HomeFragment extends Fragment {
             homeData = (RelativeLayout)view.findViewById(R.id.home_data);
             homeData.setVisibility(View.VISIBLE);
             homeAddFamily.setVisibility(View.VISIBLE);
+
+            homeAddFamily.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, AddFamilyActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            ivHomeData.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Cache.mHccDataRankEntitys.get(Cache.userID) == null){
+                        Toast.makeText(mContext,"去一体机检测吧，博士会给你打分的！",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(mContext,Cache.mHccDataRankEntitys.get(Cache.userID).getScore() + "",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
             if (Cache.mHccDataRankEntitys.get(Cache.userID) == null){
                 homeScore.setText("--");

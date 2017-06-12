@@ -255,9 +255,9 @@ public class LoginActivity extends Activity {
                 int code1 = mBaseResponse.getCode();
                 String codeMsg1= mBaseResponse.getCode_msg();
                 if(code1 == 0){
-                    UserIdResponse mUserIdResponseString = mGson.fromJson(mResult,UserIdResponse.class);
-//                    int userID = mUserIdResponseString.getBody().getUser_id();
-                    Cache.userID = mUserIdResponseString.getBody().getUser_id();
+                    UserIdResponse mUserIdResponse = mGson.fromJson(mResult,UserIdResponse.class);
+//                    int userID = mUserIdResponse.getBody().getUser_id();
+                    Cache.userID = mUserIdResponse.getBody().getUser_id();
 
                     Log.e("getUserID", "code_msg = " + codeMsg1);
                     Log.e("getUserID", "code = " + code1);
@@ -614,6 +614,7 @@ public class LoginActivity extends Activity {
                     }else {
                         for(int i=0;i<mDictRelation.size();i++){
                             Cache.mDictRelationEntity.put(mDictRelation.get(i).getRelation_code(),mDictRelation.get(i));
+                            Cache.mDictRelation.put(mDictRelation.get(i).getRelation_code(),mDictRelation.get(i).getRelation_desc());
                         }
                         getDictRelation = true;
                         judgeSucceed();

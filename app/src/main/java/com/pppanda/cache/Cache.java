@@ -18,10 +18,13 @@ public class Cache {
     public static final boolean ISDEBUG = true;
     public static String accessToken;
     public static int userID;   //自己的userID
+    public static int familyUserID;     //根据身份证获取的userID
+    public static int RelationCode;
     public static SparseArray<BaseInfoEntity> mBaseInfoEntitys = new SparseArray<>();
     public static SparseArray<HccDataRankEntity> mHccDataRankEntitys = new SparseArray<>();
     public static SparseArray<UserRelationEntity> mUserRelationEntitys = new SparseArray<>();
     public static SparseArray<DictRelationEntity> mDictRelationEntity = new SparseArray<>();
+    public static SparseArray<String> mDictRelation = new SparseArray<>();
 
     /** 删除用户，清理与其相关数据 */
     public static void clearDatasByUserID(int userID){

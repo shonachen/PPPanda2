@@ -40,7 +40,8 @@
             android:textColorHint="#747474"
             android:textSize="14sp"
             android:gravity="center_vertical|right"
-            android:paddingRight="10dp"/>
+            android:paddingRight="10dp"
+            android:singleLine="true"/>
 
     </LinearLayout>
 
@@ -79,7 +80,8 @@
             android:textColorHint="#747474"
             android:textSize="14sp"
             android:gravity="center_vertical|right"
-            android:paddingRight="10dp"/>
+            android:paddingRight="10dp"
+            android:singleLine="true"/>
 
     </LinearLayout>
 
@@ -108,30 +110,38 @@
             android:textColor="#676767"
             android:gravity="center_vertical"/>
 
-        <TextView
-            android:id="@+id/tv_family_select_relation"
+        <LinearLayout
+            android:id="@+id/select_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:text="请选择"
-            android:textSize="14sp"
-            android:textColor="#676767"
-            android:layout_toLeftOf="@+id/iv_family_point_relation"
-            android:gravity="center_vertical"/>
-
-        <ImageView
-            android:id="@+id/iv_family_point_relation"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/btn_next_n"/>
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tv_family_select_relation"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="请选择"
+                android:textSize="14sp"
+                android:textColor="#676767"
+                android:gravity="center_vertical"/>
+
+            <ImageView
+                android:id="@+id/iv_family_point_relation"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/btn_next_n"/>
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btn_comfirm"
+        android:id="@+id/btn_confirm"
         android:layout_width="210dp"
         android:layout_height="35dp"
         android:background="@drawable/btn_next"
